@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="人人都在谈论比特币、区块链，或者不知道两者区别的，火爆程度现在连我爸妈都通说过这个东西了。作为一个技术工作者，希望从技术的角度来深入的认识比特币，学习其中的技术，对未来或许有用。有人说比特币是价值传递，有人说能改变未来世界的一项发明，总是神乎其神的论点很多，也有人说这只是一场笑话。各种观点我认为还是一半一半的去看，还是得待时间来检验。就我的认识来说，比特币背后所隐含的思想更加影响深刻，比特币本身是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="比特币之思">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;05&#x2F;23&#x2F;2018%E6%AF%94%E7%89%B9%E5%B8%81%E4%B9%8B%E6%80%9D&#x2F;index.html">
+<meta property="og:site_name" content="南上南">
+<meta property="og:description" content="人人都在谈论比特币、区块链，或者不知道两者区别的，火爆程度现在连我爸妈都通说过这个东西了。作为一个技术工作者，希望从技术的角度来深入的认识比特币，学习其中的技术，对未来或许有用。有人说比特币是价值传递，有人说能改变未来世界的一项发明，总是神乎其神的论点很多，也有人说这只是一场笑话。各种观点我认为还是一半一半的去看，还是得待时间来检验。就我的认识来说，比特币背后所隐含的思想更加影响深刻，比特币本身是">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;Merkle-Tree.png">
+<meta property="og:updated_time" content="2019-11-20T06:56:20.664Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;Merkle-Tree.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>比特币之思</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/projects_url">项目</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2019/09/05/2019%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/05/20/2017%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%97%B6%E4%BB%A3/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2018/05/23/2018%E6%AF%94%E7%89%B9%E5%B8%81%E4%B9%8B%E6%80%9D/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2018/05/23/2018%E6%AF%94%E7%89%B9%E5%B8%81%E4%B9%8B%E6%80%9D/&text=比特币之思" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2018/05/23/2018%E6%AF%94%E7%89%B9%E5%B8%81%E4%B9%8B%E6%80%9D/&title=比特币之思" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2018/05/23/2018%E6%AF%94%E7%89%B9%E5%B8%81%E4%B9%8B%E6%80%9D/&is_video=false&description=比特币之思" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=比特币之思&body=Check out this article: http://yoursite.com/2018/05/23/2018%E6%AF%94%E7%89%B9%E5%B8%81%E4%B9%8B%E6%80%9D/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2018/05/23/2018%E6%AF%94%E7%89%B9%E5%B8%81%E4%B9%8B%E6%80%9D/&title=比特币之思" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2018/05/23/2018%E6%AF%94%E7%89%B9%E5%B8%81%E4%B9%8B%E6%80%9D/&title=比特币之思" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2018/05/23/2018%E6%AF%94%E7%89%B9%E5%B8%81%E4%B9%8B%E6%80%9D/&title=比特币之思" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2018/05/23/2018%E6%AF%94%E7%89%B9%E5%B8%81%E4%B9%8B%E6%80%9D/&title=比特币之思" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2018/05/23/2018%E6%AF%94%E7%89%B9%E5%B8%81%E4%B9%8B%E6%80%9D/&name=比特币之思&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#比特币是什么？什么组成了比特币？"><span class="toc-number">1.</span> <span class="toc-text">比特币是什么？什么组成了比特币？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#比特币协议-去中心化点对点网络"><span class="toc-number">2.</span> <span class="toc-text">比特币协议 - 去中心化点对点网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#区块链-分布式公共账本"><span class="toc-number">3.</span> <span class="toc-text">区块链 - 分布式公共账本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一致性规则-一套独立交易验证和货币发行机制的规则"><span class="toc-number">4.</span> <span class="toc-text">一致性规则 - 一套独立交易验证和货币发行机制的规则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#工作量证明算法-为了达到全球区块链账本一致性的保证机制"><span class="toc-number">5.</span> <span class="toc-text">工作量证明算法 - 为了达到全球区块链账本一致性的保证机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#加密、编码、数据结构"><span class="toc-number">6.</span> <span class="toc-text">加密、编码、数据结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#论中心化与去中心化"><span class="toc-number">7.</span> <span class="toc-text">论中心化与去中心化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#写在最后"><span class="toc-number">8.</span> <span class="toc-text">写在最后</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        比特币之思
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">南上南</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-05-23T06:17:46.000Z" itemprop="datePublished">2018-05-23</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>人人都在谈论比特币、区块链，或者不知道两者区别的，火爆程度现在连我爸妈都通说过这个东西了。作为一个技术工作者，希望从技术的角度来深入的认识比特币，学习其中的技术，对未来或许有用。有人说比特币是价值传递，有人说能改变未来世界的一项发明，总是神乎其神的论点很多，也有人说这只是一场笑话。各种观点我认为还是一半一半的去看，还是得待时间来检验。就我的认识来说，比特币背后所隐含的思想更加影响深刻，比特币本身是否能改变世界，我觉得有待商榷，但是它对这个世界确实已经产生了部分的影响？期待吧。</p>
+<h2 id="比特币是什么？什么组成了比特币？"><a href="#比特币是什么？什么组成了比特币？" class="headerlink" title="比特币是什么？什么组成了比特币？"></a>比特币是什么？什么组成了比特币？</h2><p>这个问题，大多数的时候我们技术人的眼里和其他人眼里可能会不同。比如你在app里面注册个账号，别人会说我有个账号，而我可能会觉得，数据库里多了一条数据。我们看待问题是从实在的做出来的角度着手，只是条数据。普通用户会从使用的角度理解，什么什么家会认为这是价值的转移、是什么个人画像的体现等等形而上的理解。就我的理解，有价值的东西就可以作为交换的媒介，而价值来源于多数人的相信，比特币可能称不上国家货币，但是可以作为如同股票般的投资品。</p>
+<p>综述来说我们需要解决信任的问题。我们从技术的角度，以上的问题都是需要解决一个技术问题，一致性的问题、安全性的问题，这两只其实是一致的。我们平时用的各种电子支付、刷卡、现金等等支付手段，都是解决了这个核心的问题。我觉得信任其实很简单，通俗来讲就是认为不出错、有保证。比如国家的货币，因为有国家来背书，各种企业的电子支付、银行，我们是相信钱放在那里不出错，可以花得出去。当然这么简单的一句话，要真正做起来，可是十分的困难的。各种金融机构、企业、银行、国家等等，为了这个目标都需要建了及其复杂的安全流程，复杂的交易系统，需要大量的服务器等等，这就是一个中心化的信任机构，慢慢越来越多人相信它，也就越来越稳固。</p>
+<p>比特币与这些中心化的机构不同之处其实就是，这条记录我的钱的数据在哪里。比如银行，我们把钱存在的银行，拿到一张卡，里面记录了一些数据，我有xx1元，实体的钱存在金库里面，数字存在银行的服务器上。而比特币就好比，我把钱从银行取了出来，我自己保管。记录我们拥有多少可以使用的比特币，这些数据并不是存在某个中心的数据中心里面，而可能是我们每个人的电脑硬盘里面。这也就是比特币最大的不同之处。但是比特币也需要解决一致性问题、安全的问题等等，但是在大规模不稳定的分布式系统里面，这一直都是十分困难的问题，而中本聪设计了这么一套规则、系统，学习它确实收益匪浅。</p>
+<p>为了实现比特币（去中心化的点对点的支付系统），整个比特币系统由以下四个部分组成：<br>1.一个去中心化的点对点通信的网络，比特币的协议，一堆数据通信的规则<br>2.交易记录的存储，一个分布式的账本，我们称之为区块链<br>3.可以让网络中用户独立进行交易验证，以及比特币发行的机制，并且保证区块链数据的一致，一套一致性规则<br>4.为了达到全球区块链账本一致性，而使用的保证机制，也就是工作量证明，俗称挖矿</p>
+<p>通过这四个部分通力合作，比特币呈现在我们的面前，下面把这四个部分分别做自己了解的阐述。</p>
+<h2 id="比特币协议-去中心化点对点网络"><a href="#比特币协议-去中心化点对点网络" class="headerlink" title="比特币协议 - 去中心化点对点网络"></a>比特币协议 - 去中心化点对点网络</h2><p>所谓的协议就是一套规则，只要符合比特币协议的机器在这个网络中就可以互相通信。<br>整个比特币网络中，可以细分为四个不同的角色：1.钱包 2.挖矿者 3.全区块链节点 4.路由节点<br>这几个角色是可以互相组合的，在我们使用的过程中。比如像一些比特币交易中心，它可能是集钱包、全区块链节点、路由节点、挖矿者一体的，当然很多时候我们只是其中的一种角色，比如我们普通用户使用在手机上装个钱包，比如许多矿工开的矿场可能只是挖矿者和全区块链节点的角色等等。不同角色各司其职，通力合作。<br>当我们产生一笔交易的时候，整个网络是这么工作的<br>1.这条新的交易记录会被广播到整个网络<br>2.所有节点开始接受这条交易记录，并开始寻找工作量证明的解<br>3.当工作量证明的解被找到之后，把收集到的交易信息记录到新的区块中并且广播到全网<br>4.接收到新区块之后，验证每条交易，通过后把该区块放置在区块链中<br>这几个步骤简单的概括了比特币网络的工作的流程。</p>
+<p>接入比特币网络最重要的第一步是找到任何一个已有的节点和它通信，在比特币客户端内，在一开始的时候写死了多个域名，保证可以连入比特币网络。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Note that of those with the service bits flag, most only support a subset of possible options</span></span><br><span class="line">vSeeds.emplace_back(<span class="string">"seed.bitcoin.sipa.be"</span>, <span class="literal">true</span>); <span class="comment">// Pieter Wuille, only supports x1, x5, x9, and xd</span></span><br><span class="line">vSeeds.emplace_back(<span class="string">"dnsseed.bluematt.me"</span>, <span class="literal">true</span>); <span class="comment">// Matt Corallo, only supports x9</span></span><br><span class="line">vSeeds.emplace_back(<span class="string">"dnsseed.bitcoin.dashjr.org"</span>, <span class="literal">false</span>); <span class="comment">// Luke Dashjr</span></span><br><span class="line">vSeeds.emplace_back(<span class="string">"seed.bitcoinstats.com"</span>, <span class="literal">true</span>); <span class="comment">// Christian Decker, supports x1 - xf</span></span><br><span class="line">vSeeds.emplace_back(<span class="string">"seed.bitcoin.jonasschnelli.ch"</span>, <span class="literal">true</span>); <span class="comment">// Jonas Schnelli, only supports x1, x5, x9, and xd</span></span><br><span class="line">vSeeds.emplace_back(<span class="string">"seed.btc.petertodd.org"</span>, <span class="literal">true</span>); <span class="comment">// Peter Todd, only supports x1, x5, x9, and xd</span></span><br></pre></td></tr></table></figure>
+
+<p>一旦连入一个，通过这一个桥梁就可以之后背后成千上万的节点了。彼此之间通过不断通信交换同步交易的信息。</p>
+<h2 id="区块链-分布式公共账本"><a href="#区块链-分布式公共账本" class="headerlink" title="区块链 - 分布式公共账本"></a>区块链 - 分布式公共账本</h2><p>作为一个点对点的交易系统，那么最关键的信息就是交易数据，而这个数据是需要存储的，这些数据就存在我们称之为区块链的数据库中。<br>我们平时使用的交易系统，所有的交易信息都存在某个企业、政府的数据中心，如果比作是账本的话，就是一个中心式的私人账本，只有特定身份的人才能看到特定的交易信息。而区块链则不同，它是一个公共的，任何人都可以存储一份，并且可看到每一条交易记录。而且保证比特币的区块链存储的全球都是相同。而为了保证这个机制，这个后面会讲到。<br>从技术的角度看，区块链本身是一个数据结构，是一个链表，这条链上的对象，通过存储后一个对象的标示，并记录关键的数据（时间戳等等），来保证整条链路的完整。</p>
+<h2 id="一致性规则-一套独立交易验证和货币发行机制的规则"><a href="#一致性规则-一套独立交易验证和货币发行机制的规则" class="headerlink" title="一致性规则 - 一套独立交易验证和货币发行机制的规则"></a>一致性规则 - 一套独立交易验证和货币发行机制的规则</h2><p>由于在在点对点网络中，每一个节点都是对等的，所以这就希望每个节点可以独立的工作，需要独立的完成下面的工作：<br>1.每个全节点更具一系列的规则可以独立的验证每一笔交易<br>2.伴随着工作量证明的计算，挖矿节点可以独立的把交易整合到新的区块<br>3.每一个节点都可以独一的验证新的区块并且链如区块链<br>4.每一个节点都独立的选择工作量证明计算量最大的链作为主链</p>
+<p>通过制定这么一些规则（其中太细节的规则这里不展开了，太多了），通过把这些规则我们这些程序员把这些规则实现到比特币的各个不同的客户端中，这样只要遵守这一规则的节点，都可以参与到比特币网络中。当然你也可以不遵守，只是如果大多数人遵守规则，那么不遵守的人就没有意义了。<br>比特币的创始人 中本聪 从一开始就了解到人的贪欲和私心，但是通过多数人的遵守引来价值的提升，从而不断的引入人加入，形成一个利益的正向循环，从而让不遵守的人寻不到价值，然后就会放弃。</p>
+<h2 id="工作量证明算法-为了达到全球区块链账本一致性的保证机制"><a href="#工作量证明算法-为了达到全球区块链账本一致性的保证机制" class="headerlink" title="工作量证明算法 - 为了达到全球区块链账本一致性的保证机制"></a>工作量证明算法 - 为了达到全球区块链账本一致性的保证机制</h2><p>上面我们讲到，每个节点是独立验证的，所以开发的客户端都是遵守这个规则的，这是前提。<br>工作量证明本身比较简单，通过让计算机解一道谜题，最先找到答案的人可以获得记账的权利，就是把交易记录合并成一个区块，并获得比特币奖励这个一个权利。<br>那么意义是什么？<br>我们知道比特币被称为是加密货币，因为从设计之初就用到了大量的密码学知识。而其中一个原则叫做：解密困难，验证容易。<br>其实工作量证明也是这么个原理，计算机通过不断的计算来解密这个问题，最后得到答案，没有捷径可走，只能brute-force的来做。但是这个结果却很容易的来验证，瞬间就好。<br>我们知道区块链是连在一起的，然后每个快中间加入谜题以及解密的答案，再加上每个节点都是按照统一的规则的，那么，每个节点可以很容易的验证这个区块是不是合法的。而且做坏的人很难修改这个答案，也就很难修改区块链数据，也就是重要的交易数据。比如区块链中最长链有10000个区块，那么如果你想要修改第1000个区块的交易数据，由于工作量证明存在，必须从解开1000区块之上的所有区块的谜题修改成功，因为仅仅该其中一个是无效的，因为区块链是相连的，其中一个变化就会导致失效。再加上比特币是不断增加的，如果我们花费时间在老的区块上，那么几乎永远也追不上新的区块，也就导致永远不是最长的链，从而和上一个章节的第四条规则相抵触。<br>所以最好的方式就是不断的找新的，如果有人找到了，验证通过后，马上开始找下一块。</p>
+<p>所以工作量证明的作用就是加大这种犯罪成本，使的无利益可图，从而也就失去了意义，那么大多人都会向着正向循环前进。<br>比特币整个系统的设计，真的很有意思，充分考虑到人心的弱点，人性的追逐利益的特点。</p>
+<h2 id="加密、编码、数据结构"><a href="#加密、编码、数据结构" class="headerlink" title="加密、编码、数据结构"></a>加密、编码、数据结构</h2><p>既然是加密货币，那么其中用到的加密知识，值得我好好学习。<br>1.非对称加密<br>其中最重要的加密知识就是非对称加密这个东东。<br>在非对称加密中，有两个东西，一个是私钥，一个是公钥。两者之间有这么一个关系：<br>通过公钥加密的信息，可以用私钥轻易的解密，但是通过公钥你几乎无法找到私钥。<br>比特币中使用了椭圆函数来生成私钥和公钥，<br>y2 mod p = (x3 + 7) mod p<br>上述是椭圆函数，其中p略小于2的256次方。<br>这个函数式一个椭圆，G =（x,y）是椭圆上的一个点<br>那么公钥和私钥的关系如下： PublicKey = PrivateKey * G<br>如果你拥有了私钥，那么要验证公钥的话，就很简单，把公钥除以私钥得到的那个点的x和y带入上面的椭圆函数，如果是其一个解，那么验证成功。<br>（有人会问点怎么变成一串数字，其实比特币的公钥和私钥，就是两个点，然后把x和y前后相连即可）。</p>
+<p>2.单向加密 Hash<br>单向加密简单来说就是，一旦hash之后就不可逆转了，当然这个不可逆转是相对而言的。比如我们常用的md5、sha256等等都是这种算法，任何输入通过这么一加密就会变成一个256字节的字符串了，并且任何一个小小的改动都会是结果大变。其可能的结果大概是10的70次方数量级，而可见宇宙的原子大概在10的77次方数量级。所以一旦这么加密，解密几乎是不可能的是，而且出现相同的值的概率也是微乎其微的，并且很好验证。由于这么一些特性，比特币中很多地方都用到了。<br>上文讲的工作量证明算法的谜题，其实就是一个计算hash的过程，直到找到特定的hash值为准。最大的hash是这个FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFE FFFFFFFF。这个谜题所要找的，就是通过不断的hash，寻找到一个hash值，小于制定的hash值，比如目标是找到比下面这个hash值小的值 - 00000000 FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFE FFFFFFFF，那么随着这个目标值越来越小，那么找hash就会越来越难。比特币网络也是通过增加谜题的难度来应对算力的增加，并且保持平均每10分钟一个区块的速度。最后找到这个问题答案的矿工，把答案放在区块中，别人就可以验证了。<br>还有一个地方是，比特币的地址，比特币的地址是通过两次hash公钥并添加一些前缀来生成的。所以有了私钥我们可以生成多个公钥，可以生成多个地址。</p>
+<p>3.编码<br>base64，RIPEMD160等等编码手段来提高可读性</p>
+<p>4.Merkle Tree<br>在比特币的区块链中，每一个区块都存储着一个merkle root，这个hash值就包含了整个区块交易的缩影。<br>比特币区块一个Merkle Tree是这样，把所有的交易拉平为树的叶节点，然后两两相加后hash，然后不断往上重复，最后到根节点，而这个根节点就包含了整个树的信息。<br>如下图：</p>
+<p><img src="/images/Merkle-Tree.png" alt="MerkleTree | left"></p>
+<p>有了这棵树我们就可以快速的验证某条交易是否在该区块中，并且我们只要找到对应的一条路径就可以验证了。可以极大的减少存储空间。</p>
+<p>5.Bloom Filters 布隆过滤器<br>由于一旦连入比特币网络，机器间会不断的同步交易信息，接受到各种交易信息。那么有时候并不需要接受到所有的交易信息，或者想要主动的过滤掉交易信息。<br>1.首先需要k个hash函数，每个函数可以把key散列成为1个整数<br>2.初始化时，需要一个长度为n比特的数组，每个比特位初始化为0<br>3.某个key加入集合时，用k个hash函数计算出k个散列值，并把数组中对应的比特位置为1<br>4.判断某个key是否在集合时，用k个hash函数计算出k个散列值，并查询数组中对应的比特位，如果所有的比特位都是1，认为在集合中。<br>没有落到布隆过滤器中值一定不属于，这个特点，可以让我们过滤掉不需要的交易记录。</p>
+<h2 id="论中心化与去中心化"><a href="#论中心化与去中心化" class="headerlink" title="论中心化与去中心化"></a>论中心化与去中心化</h2><p>中心化与去中心化，我觉得是相对而言的，没有必然的好坏之分，看合不合适。从不同角度来看很多时候一个系统即是中心化的又是去中心化的。<br>区块链，基于区块链的比特币，亦或是以太坊等等，这些应用本身虽然对我们的生活多少产生了影响，但是比起我们熟知的已有的相对中心化的应用，它们又更加颠覆。我觉得现有的去中心化产品对世界影响最大的，我觉得是让人们看到了一种新的希望，而这种希望会让一部分人奋不顾身的投入，从而逐渐的改变我们的生活。这种希望具有这个世界上最大力量，人活着很多时候就是追逐各种各样的希望。<br>比特币是基于互联网的，我们现在使用的互联网本身就是一个巨大的去中心化的系统。但是不管怎么样，根据历史的规律，慢慢慢慢的必然会存在分歧和集权。记忆中记得有一个试验是平均的把钱分为100个人，慢慢的，这些钱最后就会回归到一个所谓不平衡的状态，大概我们俗称的二八原则，其中这些钱会更多的流入前20%的人手里，又由于马太效应，强者愈强。庆幸这个世界、大部分国家都建立了一定的机制会限制最强和最弱。互联网也是如此，创建的人本来希望电脑可以随意链接，共享资源，但是其实不然，慢慢的这种资源会集中到某些的手里，好处是我们可以获得更好的服务。比特币如同刚开始的互联网，慢慢加入的人多了，就变得膨胀了，小的玩家只能去使用，渐渐的我猜其实很多的币、计算资源是集权的，其实也变得不那么去中心化了。你看，所以这个东西很有意思，值得不断的深入思考</p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>从了解比特币到慢慢去学习它，对我最大的震撼不是它用了什么高深的技术、算法，反而它用的都是最简洁有效的方法，分解每一个技术都是现在互联网技术中常见的技术，这是一点。让我知道一个伟大的系统一定的简洁简单的。（To Be Simple).<br>还有一点就是比特币整个系统在设计上充分的了解了人的暗的一面，对于价值的理解，对于信任的理解。虽然自己对于人的这些不甚了解深入，但也告诉了我，懂技术，更要懂技术的受益者（人类，动物，大自然，宇宙等等），而这需要我不断的去学习、思考。</p>
+<p>比特币去向何方我不知道，但是学习了解它，让我很欣慰。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/projects_url">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#比特币是什么？什么组成了比特币？"><span class="toc-number">1.</span> <span class="toc-text">比特币是什么？什么组成了比特币？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#比特币协议-去中心化点对点网络"><span class="toc-number">2.</span> <span class="toc-text">比特币协议 - 去中心化点对点网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#区块链-分布式公共账本"><span class="toc-number">3.</span> <span class="toc-text">区块链 - 分布式公共账本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一致性规则-一套独立交易验证和货币发行机制的规则"><span class="toc-number">4.</span> <span class="toc-text">一致性规则 - 一套独立交易验证和货币发行机制的规则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#工作量证明算法-为了达到全球区块链账本一致性的保证机制"><span class="toc-number">5.</span> <span class="toc-text">工作量证明算法 - 为了达到全球区块链账本一致性的保证机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#加密、编码、数据结构"><span class="toc-number">6.</span> <span class="toc-text">加密、编码、数据结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#论中心化与去中心化"><span class="toc-number">7.</span> <span class="toc-text">论中心化与去中心化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#写在最后"><span class="toc-number">8.</span> <span class="toc-text">写在最后</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2018/05/23/2018%E6%AF%94%E7%89%B9%E5%B8%81%E4%B9%8B%E6%80%9D/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2018/05/23/2018%E6%AF%94%E7%89%B9%E5%B8%81%E4%B9%8B%E6%80%9D/&text=比特币之思" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2018/05/23/2018%E6%AF%94%E7%89%B9%E5%B8%81%E4%B9%8B%E6%80%9D/&title=比特币之思" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2018/05/23/2018%E6%AF%94%E7%89%B9%E5%B8%81%E4%B9%8B%E6%80%9D/&is_video=false&description=比特币之思" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=比特币之思&body=Check out this article: http://yoursite.com/2018/05/23/2018%E6%AF%94%E7%89%B9%E5%B8%81%E4%B9%8B%E6%80%9D/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2018/05/23/2018%E6%AF%94%E7%89%B9%E5%B8%81%E4%B9%8B%E6%80%9D/&title=比特币之思" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2018/05/23/2018%E6%AF%94%E7%89%B9%E5%B8%81%E4%B9%8B%E6%80%9D/&title=比特币之思" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2018/05/23/2018%E6%AF%94%E7%89%B9%E5%B8%81%E4%B9%8B%E6%80%9D/&title=比特币之思" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2018/05/23/2018%E6%AF%94%E7%89%B9%E5%B8%81%E4%B9%8B%E6%80%9D/&title=比特币之思" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2018/05/23/2018%E6%AF%94%E7%89%B9%E5%B8%81%E4%B9%8B%E6%80%9D/&name=比特币之思&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Lei Chen
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/projects_url">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<!-- clipboard -->
+
+  <script src="/lib/clipboard/clipboard.min.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight .code pre").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
