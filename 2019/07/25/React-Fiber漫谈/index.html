@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="上次写了对于前端以及发展的理解，这次想写写看对于新版React的新的React Fiber的实现。在React 16这个版本中，React团队正式的实现了React Fiber架构，这全新的架构是对于老版本的React的核心算法的完全重构，可以说是大费周折，为什么？这个是我希望去了解的问题。要了解这个问题什么，首先要去了解一下之前版本的React的算法，到底有什么问题？只有知道了问题所在，才能知道">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React Fiber漫谈">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;07&#x2F;25&#x2F;React-Fiber%E6%BC%AB%E8%B0%88&#x2F;index.html">
+<meta property="og:site_name" content="南上南">
+<meta property="og:description" content="上次写了对于前端以及发展的理解，这次想写写看对于新版React的新的React Fiber的实现。在React 16这个版本中，React团队正式的实现了React Fiber架构，这全新的架构是对于老版本的React的核心算法的完全重构，可以说是大费周折，为什么？这个是我希望去了解的问题。要了解这个问题什么，首先要去了解一下之前版本的React的算法，到底有什么问题？只有知道了问题所在，才能知道">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-20T08:23:41.671Z">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>React Fiber漫谈</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/projects_url">项目</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2019/07/30/rematch%E6%A1%86%E6%9E%B6%E6%BC%AB%E8%B0%88/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2019/07/05/react%E6%A1%86%E6%9E%B6%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E6%BC%AB%E8%B0%88/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/07/25/React-Fiber%E6%BC%AB%E8%B0%88/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/07/25/React-Fiber%E6%BC%AB%E8%B0%88/&text=React Fiber漫谈" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/07/25/React-Fiber%E6%BC%AB%E8%B0%88/&title=React Fiber漫谈" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/07/25/React-Fiber%E6%BC%AB%E8%B0%88/&is_video=false&description=React Fiber漫谈" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=React Fiber漫谈&body=Check out this article: http://yoursite.com/2019/07/25/React-Fiber%E6%BC%AB%E8%B0%88/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/07/25/React-Fiber%E6%BC%AB%E8%B0%88/&title=React Fiber漫谈" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/07/25/React-Fiber%E6%BC%AB%E8%B0%88/&title=React Fiber漫谈" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/07/25/React-Fiber%E6%BC%AB%E8%B0%88/&title=React Fiber漫谈" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/07/25/React-Fiber%E6%BC%AB%E8%B0%88/&title=React Fiber漫谈" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/07/25/React-Fiber%E6%BC%AB%E8%B0%88/&name=React Fiber漫谈&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概念"><span class="toc-number">1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#问题"><span class="toc-number">2.</span> <span class="toc-text">问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-Fiber"><span class="toc-number">3.</span> <span class="toc-text">React Fiber</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#fiber"><span class="toc-number">3.1.</span> <span class="toc-text">fiber</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UpdateQueue-And-Update"><span class="toc-number">3.2.</span> <span class="toc-text">UpdateQueue And Update</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Updater"><span class="toc-number">3.3.</span> <span class="toc-text">Updater</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ExpirationTime-和-Priority"><span class="toc-number">3.3.1.</span> <span class="toc-text">ExpirationTime 和 Priority</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scheduler"><span class="toc-number">3.4.</span> <span class="toc-text">Scheduler</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#requestIdleCallback"><span class="toc-number">3.5.</span> <span class="toc-text">requestIdleCallback</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#执行流程"><span class="toc-number">4.</span> <span class="toc-text">执行流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#首次"><span class="toc-number">4.1.</span> <span class="toc-text">首次</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新"><span class="toc-number">4.2.</span> <span class="toc-text">更新</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结语"><span class="toc-number">5.</span> <span class="toc-text">结语</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        React Fiber漫谈
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">南上南</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-07-25T07:58:33.000Z" itemprop="datePublished">2019-07-25</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>上次写了对于前端以及发展的理解，这次想写写看对于新版React的新的React Fiber的实现。<br>在React 16这个版本中，React团队正式的实现了React Fiber架构，这全新的架构是对于老版本的React的核心算法的完全重构，可以说是大费周折，为什么？这个是我希望去了解的问题。<br>要了解这个问题什么，首先要去了解一下之前版本的React的算法，到底有什么问题？只有知道了问题所在，才能知道React Fiber到底是为了解决什么问题。在引出问题之前，有必要先简单阐述下，浏览是如何工作的？这样能够更好的去理解这个问题本身。</p>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>首先我们稍微回顾一下几个概念：</p>
+<ul>
+<li>虚拟DOM（Virtual DOM）：更多的是一个编程的概念，所谓的虚拟就是把真实的UI界面通过某种方式先保存在内存中，有点像是双缓冲，把浏览器的UI DOM元素通过一种方式先保存在内存中，然后通常先修改内存中虚拟DOM，然后再把虚拟DOM的更改同步到真实的DOM元素中。</li>
+<li>元素（Element）: 用来描述真实DOM元素或者React组件实例以及其所需属性的对象。<ul>
+<li>组件元素：我们平时用class或者function写的一个个的React组件</li>
+<li>DOM元素：HTML自带的一些DOM元素，比如div，a，input，p等等</li>
+</ul>
+</li>
+</ul>
+<p>比如下面这段代码，描述了一个我们自己定义的Form组件MyForm，里面包含了一个真实DOM元素 input元素。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  type: <span class="string">'MyForm'</span>,</span><br><span class="line">  props: &#123;</span><br><span class="line">    className: <span class="string">'my-form'</span>,</span><br><span class="line">    children: &#123;</span><br><span class="line">      type: <span class="string">'input'</span>,</span><br><span class="line">      props: &#123;</span><br><span class="line">        placeholder: <span class="string">'输入一些文字'</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 里面有更多的字段，就不列举了</span></span><br><span class="line"><span class="comment">// 转换成 JSX的语法就是</span></span><br><span class="line">&lt;MyForm className=<span class="string">"my-form"</span>&gt;</span><br><span class="line">    &lt;input placeholder=<span class="string">"输入一些文字"</span> /&gt;</span><br><span class="line">&lt;<span class="regexp">/MyForm&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>问题就出在这一整个从渲染、比对树结构 到 提交DOM变更的一系列操作是不停止的，在大型应用中，会触发大量的更新运行过长的时间，导致浏览器失帧，从而带来非常糟糕的用户体验，也就会用户感受一种卡顿的感受。而React Fiber就是需要解决这个问题？非常直观的，可以想到：</p>
+<ol>
+<li>许多的更新操作，中间的计算操作，我们并不需要及时的做完、及时的反应，而是只要在空闲的做就可以了，比如屏幕外组件的更新等等。</li>
+<li>不同的操作之间其实是有优先级的，比如动画、用户交互（输入文字、点击等等），这些用户直观的感受的东西是需要及时的处理和反应的，动画需要保持60fps，输入文字需要马上出现等等。</li>
+</ol>
+<p>知道问题所在以及我们直观的感受，就能够理解需要解决的问题是什么了。<strong>如果能够通过某种方式可以调度这些操作，把操作按优先级排列，在有限的帧时间内，执行优先级高的操作，时间不够，那么就把其他操作在放到下一帧去执行，保证连贯性。岂不妙哉~</strong></p>
+<p>其实React Fiber就是做了这么一个操作分解和调度的事情，讲起来容易，做起来难啊！React团队从提出Fiber架构到实现花了至少2年时间，可见这个问题，好理解，但是真正实现起来真的是不容易啊！！<br>下面以我自己的理解，来详细阐述下React Fiber架构具体是怎么样？是如何实现的？React Fiber所要实现的不是让React更快，而是让用户体验更加的丝般顺滑。</p>
+<h2 id="React-Fiber"><a href="#React-Fiber" class="headerlink" title="React Fiber"></a>React Fiber</h2><p>为了能够调度React的操作，那么首先必须要想一办法能够把各种操作分解为一个个小的单元方便调度，首先要有能够调度的对象。而Fiber就代表了一个单位的工作，这是React中对于调度工作的抽象。每个Fiber都对应一个组件所要做的工作（完成或者未完成的），但是一个组件可能是会有多个Fiber去完成这个组件渲染需要完成的工作的。</p>
+<p>在React框架工作的时候，不管是老的算法还是新的React Fiber架构都是分为两个阶段。</p>
+<ol>
+<li>render/reconcilition：一直觉得reconcilition好难翻译，所以就不翻译了……在这个阶段呢，React在内存中做计算，主要做以下一些事情：寻找Element Tree的更新点，并转换成合并为单次Dom操作。</li>
+<li>commit： 这个阶段主要是把上个阶段生成的DOM操作去真正的执行。</li>
+</ol>
+<p>这两个阶段也定义了，在React中我们所谓的渲染只是在内存中的计算，而第二阶段才是真正的应用到DOM元素中。React Fiber架构是对第一阶段的一种重构实现，老的算法和新的算法的的区别就是在这个阶段。</p>
+<p>老的算法的执行是：Render -&gt; 只要出发就不停的一大堆计算 -&gt; commit 提交<br>新的算法的执行是：Render -&gt; 一个个小的工作单元<br>                    | —-&gt; 异步执行完成后 -&gt; commit提交<br>                    | —&gt; 异步分散在不同的帧中执行</p>
+<p>React Fiber架构实现了对于第一阶段渲染阶段的异步优先级执行，把一大堆本来不能停止的计算，分解成一个个小的工作单元，并且可以控制其什么时候优先执行、停止。每一个工作单位称之为fiber，这里是React的一种提法，下面我们看看什么是fiber。</p>
+<h3 id="fiber"><a href="#fiber" class="headerlink" title="fiber"></a>fiber</h3><p>在代码中，fiber是React定义的一种数据结构，这个数据结构是 原有React的元素数据结构的升级版，它包含了每个fiber对应的元素的信息、该元素的更新操作队列、类型等。<br><strong>这里需要强调的是：由于fiber数据结构中已经包含了element的信息了，构建的树了一棵fiber树了，所以说是一个升级版React Element。后面用了许多对应元素的fiber只是为了方便理解。</strong></p>
+<p>下面是React定义的Fiber的结构（摘自React源码）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 表示这个何种工作类型，下面列几个比较重要的类型</span></span><br><span class="line">  <span class="comment">// HostRoot：可以理解为这个fiber是fiber树的根节点，根节点可以嵌套在子树中</span></span><br><span class="line">  tag: TypeOfWork,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 唯一标示。我们在写React的时候如果出现列表式的时候，需要制定key，这key就是对应元素的key。</span></span><br><span class="line">  key: <span class="literal">null</span> | string,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 表示这个fiber对应的元素是何种类型：class，function还是module</span></span><br><span class="line">  type: any,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// fiber对应的组件元素的引用</span></span><br><span class="line">  stateNode: any,</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 当前Fiber的父fiber，如果是根节点就为null</span></span><br><span class="line">  <span class="keyword">return</span>: Fiber | <span class="literal">null</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 单链表的树结构。</span></span><br><span class="line">  <span class="comment">// 每一个fiber都需要引用它所代表的元素的子元素的fiber，以及树的右侧的元素的fiber。</span></span><br><span class="line">  <span class="comment">// 从这里我们可以看出React是循环遍历整棵树的，和之前的递归遍历已经发生了根本的变化。</span></span><br><span class="line">  child: Fiber | <span class="literal">null</span>,</span><br><span class="line">  sibling: Fiber | <span class="literal">null</span>,</span><br><span class="line">  index: number,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 这个fiber对应的React元素对应的真实DOM的引用</span></span><br><span class="line">  ref: <span class="literal">null</span> | <span class="function">(<span class="params">((handle: mixed</span>) =&gt;</span> <span class="keyword">void</span>) &amp; &#123;<span class="attr">_stringRef</span>: ?string&#125;) | RefObject,</span><br><span class="line"></span><br><span class="line">  pendingProps: any,</span><br><span class="line">  memoizedProps: any,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 元素更新的队列，每一次发生状态更新先把更新push到这个队列中。这里包含了</span></span><br><span class="line">  updateQueue: UpdateQueue&lt;any&gt; | <span class="literal">null</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 当某一阶段的更新完毕后，就会生成一个最终的状态，这个最终的状态用来生成最后的dom元素</span></span><br><span class="line">  <span class="comment">// 这个最终状态也就是下一阶段更新的当前状态。好像有点绕！不过还是可以理解的</span></span><br><span class="line">  memoizedState: any,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 用来描述fiber是处于何种模式。用二进制位来表示（bitfield），后面通过与来看两者是否相同</span></span><br><span class="line">  <span class="comment">// 这个字段其实是一个数字.实现定义了一下四种</span></span><br><span class="line">  <span class="comment">// NoContext: 0b000 -&gt; 0</span></span><br><span class="line">  <span class="comment">// AsyncMode: 0b001 -&gt; 1</span></span><br><span class="line">  <span class="comment">// StrictMode: 0b010 -&gt; 2</span></span><br><span class="line">  <span class="comment">// ProfileMode: 0b100 -&gt; 4</span></span><br><span class="line">  mode: TypeOfMode,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 具体的执行的工作的类型：比如Placement，Update等等</span></span><br><span class="line">  effectTag: TypeOfSideEffect,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 下一个需要执行的工作</span></span><br><span class="line">  nextEffect: Fiber | <span class="literal">null</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 子树中有更新工作的第一和最后一个fiber</span></span><br><span class="line">  firstEffect: Fiber | <span class="literal">null</span>,</span><br><span class="line">  lastEffect: Fiber | <span class="literal">null</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 表示这个fiber在多长时间之后会完成。通过这个参数也可以知道是否还有等待暂停的变更、没有完成变更。</span></span><br><span class="line">  <span class="comment">// 这个参数一般是UpdateQueue中最长过期时间的Update相同，如果有Update的话。</span></span><br><span class="line">  expirationTime: ExpirationTime,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 当前fiber对应的工作中的Fiber。</span></span><br><span class="line">  <span class="comment">// 每个fiber一旦有了更新工作，就会创建一个工作中的fiber。</span></span><br><span class="line">  <span class="comment">// 当某一阶段的工作完成后，当前fiber就会引用这个fiber。</span></span><br><span class="line">  alternate: Fiber | <span class="literal">null</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 测试开发用于监控每个fiber渲染所花的时间</span></span><br><span class="line">  actualDuration?: number,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 测试开发用于监控合适开始渲染</span></span><br><span class="line">  actualStartTime?: number,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 测试开发用于这个fiber最近一次渲染持续时间</span></span><br><span class="line">  selfBaseTime?: number,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 测试开发用于这个fiber后面的整棵树所有的最近一次渲染持续时间之和</span></span><br><span class="line">  treeBaseTime?: number,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>fiber的创建是通过React元素来创建的，在整个React构建的虚拟DOM树中，每一个元素都对应有一个fiber，从而构建了一棵fiber树，每个fiber不仅仅包含每个元素的信息，还包含更多的信息，以方便Scheduler来进行调度。一个fiber又包含了子（child）fiber的引用和兄（sibling）fiber的引用。这个就像是react element一样，构建一棵fiber树，通过父fiber就可以遍历这棵树。</p>
+<p>每一个React元素实例都会有一个当前状态的fiber，以及可能会有一个正在工作中的Fiber。这么去理解呢？举个例子来说，当我们UI没有了任何改动更新，那么只有一个当前状态的fiber树，但是突然我们点了一下触发了更新，那么React是怎么处理的呢？其实是先生成一个新的fiber，然后把更新放入这个fiber，由于fiber是可以中断继续的，在最后的commit之前，称之为work-in-progress fiber，而这棵树称为work-in-progress tree，意思其实就是我正在构建中，当最后的commit了，那么当前的fiber就变为新的fiber了。</p>
+<h3 id="UpdateQueue-And-Update"><a href="#UpdateQueue-And-Update" class="headerlink" title="UpdateQueue And Update"></a>UpdateQueue And Update</h3><p>每一个fiber中都会记录fiber对应的元素的更新，当我们做一些操作的时候可能触发的更新是多个的，该fiber对应元素的所有的更新都会记录在UpdateQueue这个队列中。</p>
+<p>UpdateQueue是一个链表的实现，一个Update接着一个Update。</p>
+<p>所谓的更新，我可以理解为调用了setState方法、组件Props发生了变化触发的更新。每次有更新出现，就会包装一个Update对象，放入该组件对应的UpdateQueue里面。Update的结构如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 在创建每个更新的时候，需要设定过期时间，过期时间也就是优先级。过期时间越长，就表示优先级越低。</span></span><br><span class="line">    <span class="comment">// React预先定义了三个过期时间:</span></span><br><span class="line">    <span class="comment">// - NoWork = 0 表示没有工作</span></span><br><span class="line">    <span class="comment">// - Sync = 1 表示更新需要马上同步完成</span></span><br><span class="line">    <span class="comment">// - Never = 1073741823 表示永远不用完成</span></span><br><span class="line">    <span class="comment">// 介于Sync和Never之间的，越大优先级越高。过期时间以10ms为一个单位</span></span><br><span class="line">    expirationTime: ExpirationTime,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 0: （UpdateState）表示更新State</span></span><br><span class="line">    <span class="comment">// 1: （ReplaceState）表示替换State</span></span><br><span class="line">    <span class="comment">// 2: （ForceUpdate）强制更新（比如调用ForceUpdate方法）</span></span><br><span class="line">    <span class="comment">// 3: （CaptureUpdate）捕获更新（发生异常错误的时候发生）</span></span><br><span class="line">    tag: <span class="number">0</span> | <span class="number">1</span> | <span class="number">2</span> | <span class="number">3</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 具体更新的对象，比如我们调用setState方法传入的对象数据</span></span><br><span class="line">    payload: any,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 更新完成后的回调，比如调用setState方法的第二</span></span><br><span class="line">    callback: <span class="function">(<span class="params">(</span>) =&gt;</span> mixed) | <span class="literal">null</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 队列中，下一个Update的应用</span></span><br><span class="line">    next: Update&lt;State&gt; | <span class="literal">null</span>,</span><br><span class="line">    nextEffect: Update&lt;State&gt; | <span class="literal">null</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>更新列表中的Update是按照先到先入队来排列的，但是每个更新是有优先级的，所以他们的执行时间不是一个一个来的。</p>
+<p>在上一节fiber的结构中有一个alternate字段存放着正在工作的fiber，两者都有一个更新队列，每一个更新对同时入列到两个队列中。下面这个例子摘自React的源码。</p>
+<blockquote>
+<p>Current Fiber Update Queue:                A1    B2    C1    D2    E4    F5<br>Work-In-Progress Update Queue:                                     E4    F5<br>大多时候，工作中的更新队列会比当前队列的更新少，表示有些更新（A B C D）已经完成。那么ABCD完成的顺序并非是按顺序来的。<br>比如，当前的状态是 ‘ ‘，表示空，现在是上述四个更新:  A1 - B2 - C1 - D2<br>其中数字表示优先级，字母表示更新的状态。<br>第一轮更新的时候，优先级是1：</p>
+</blockquote>
+<ul>
+<li>初始状态：’ ‘</li>
+<li>[A1, C1] 完成，</li>
+<li>最终的状态是AC。</li>
+</ul>
+<p>第二轮更新的时候，优先级是2:</p>
+<ul>
+<li>初始状态：A。这里是比较tricky的地方，由于第一次更新把B2给漏掉了，那么第二轮更新的时候，会重新从B2开始C1。所以在新版中，同一个更新可能会被执行两遍，不影响最终状态。</li>
+<li>[B2, C1, D2] 完成</li>
+<li>最终状态是 ABCD</li>
+</ul>
+<p>React是按照顺序遍历的，有任何的更新跳过，在下一轮中都会重新执行一遍，虽然会多次执行，但是最后是保证最终的状态一致性的。</p>
+<h3 id="Updater"><a href="#Updater" class="headerlink" title="Updater"></a>Updater</h3><p>每个组件都会有一个Updater对象，它的用处就是把组件元素更新和对应的fiber关联起来。监听组件元素的更新，并把对应的更新放入该元素对应的fiber的UpdateQueue里面，并且调用ScheduleWork方法，把最新的fiber让scheduler去调度工作。在这一步的时候Updater也给每个Update打上了tag做了分类，具体看上一章Update的字段。下面代码是其中一个方法，更新state的update（还有replateState, ForceUpdate的方法，都是差不多的，这里就看这个方法就可以了），摘自React 16.4.0的源码，不必要的部分删除了。：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">enqueueSetState(inst, payload, callback) &#123;</span><br><span class="line">    <span class="keyword">const</span> fiber = ReactInstanceMap.get(inst);</span><br><span class="line">    <span class="keyword">const</span> currentTime = recalculateCurrentTime();</span><br><span class="line">    <span class="keyword">const</span> expirationTime = computeExpirationForFiber(currentTime, fiber);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> update = createUpdate(expirationTime);</span><br><span class="line">    update.payload = payload;</span><br><span class="line"></span><br><span class="line">    enqueueUpdate(fiber, update, expirationTime);</span><br><span class="line">    scheduleWork(fiber, expirationTime);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>整体的处理流程是：</p>
+<ol>
+<li>先找到元素对应的fiber</li>
+<li>计算当前时间</li>
+<li>计算过期时间（优先级）</li>
+<li>创建Update对象（如上一章）</li>
+<li>赋值payload（也就是我需要更新的状态）</li>
+<li>把新创建的Update，加入到元素对应的fiber的更新队列中</li>
+<li>调用Scheduler的scheduleWork方法，让调度器开始工作</li>
+</ol>
+<p>这一个过程就达到了一个很重要的目的，就是知道了到底是哪个组件元素发生了更新变化，然后通知Scheduler去调取对应的fiber，这样保证更新只是发生在对应的元素中。<br>从这个过程中，我们知道每次更新，都会让Scheduler去Schedule一次工作。</p>
+<h4 id="ExpirationTime-和-Priority"><a href="#ExpirationTime-和-Priority" class="headerlink" title="ExpirationTime 和 Priority"></a>ExpirationTime 和 Priority</h4><p>有必要讲讲过期时间，刚开始理解React Fiber架构的时候，一直会有一个疑问就是任务的优先级到底是在哪里定义的？翻看整个源码都没找到优先级的影子。后来发现原来React定义了一个ExpirationTime，它表示了任务什么是后执行，变相的标示了优先级，ExpirationTime数值越大也就表示优先级越小。<br>ExpirationTime是一个数字，以10ms为一个单位，并定义了一个offset=2，防止和预先定义的特殊值产生冲突。因为有几个特殊的ExpirationTime用来表示特殊的含义。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// - NoWork = 0 表示没有工作</span></span><br><span class="line"><span class="comment">// - Sync = 1 表示更新需要马上同步完成</span></span><br><span class="line"><span class="comment">// - 1 ~ 1073741823 之间，执行优先级递减</span></span><br><span class="line"><span class="comment">// - Never = 1073741823 表示永远不用完成</span></span><br></pre></td></tr></table></figure>
+
+<p>比如 100ms过期时间转换成ExpirationTime的表示为 (100 / 10) -2 = 8</p>
+<h3 id="Scheduler"><a href="#Scheduler" class="headerlink" title="Scheduler"></a>Scheduler</h3><p>Updater通知到了Scheduler去调度哪些fiber，而Scheduler做的事情就是决定什么时候去执行这些更新。一个是What，一个是When。<br>在Scheduler中最核心的一个方法就是ScheduleWork，就是调度安排工作。<br>ScheduleWork的触发方式是：每次当有一个fiber更新的时候，更新推入队列，然后触发对应fiber的ScheduleWork。<br>ScheduleWork做了什么事情：以传入的fiber为基点，往上回溯，直到找到根fiber，在一路向上回溯的过程中，会比对每个fiber的优先级和传入的更新优先级，执行优先级更高的更新。</p>
+<h3 id="requestIdleCallback"><a href="#requestIdleCallback" class="headerlink" title="requestIdleCallback"></a>requestIdleCallback</h3><p>这个是浏览器提供的一个方法，这个方法作用就是调度把一部分工作放在闲置的某个frame里面去完成。React团队其实是自己实现这个方法。</p>
+<h2 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h2><p>整个React 16的执行的流转，主要可以从两个阶段来解读：第一个是首次我们调用ReactDOM.render方法的时候是怎么个过程，还有一个就是当我们调用setState方法，更改Props的时候，也就是组件更新的时候又是怎么个过程？</p>
+<h3 id="首次"><a href="#首次" class="headerlink" title="首次"></a>首次</h3><p>指的是ReactDOM.render方法来创建我们React应用的时候，通常一个React应用只会调用一次，第一次调用会发生什么呢？让我们一步一步来说：<br>1.创建一个React Root，有以下比较重要的参数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">// 具体实现的渲染方法</span></span><br><span class="line">  render(children: ReactNodeList, <span class="attr">callback</span>: ?<span class="function"><span class="params">()</span> =&gt;</span> mixed): Work,</span><br><span class="line">  <span class="comment">// unmount组件的方法</span></span><br><span class="line">  unmount(callback: ?<span class="function"><span class="params">()</span> =&gt;</span> mixed): Work,</span><br><span class="line">  createBatch(): Batch,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 下一步中创建的Fiber Root</span></span><br><span class="line">  _internalRoot: FiberRoot,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.创建Fiber Root，它引用着真正的整个应用的fiber树根节点。在构建Fiber Root的过程中，构建Fiber Root引用的第一个fiber实例，这个fiber的tag是HostRoot – 表示是fiber树的根节点，模式是非异步。并初始化对应的Fiber Root的参数。新建的Fiber Root会成为React Root中_internalRoot参数的引用。</p>
+<p>3.如果传入了我们自己的Callback回调函数，那么React会构建一个新的callback函数，里面先获取上述Root的实例作为参数传入我们的回调函数。</p>
+<p>4.调用Scheduler的unbatchedUpdate方法，方法的入参是具体的Root的render方法，也就是上述的Render方法。这个unbatchedUpdate其实就是运行的了我们传入的render方法。unbatched的隐含意思就是整个渲染过程是同步完成的，也就是要尽快完成。这个render方法到底干了些什么呢？</p>
+<p>5.执行render方法：</p>
+<ul>
+<li>获取ReactRoot中引用的FiberRoot，并取出根fiber</li>
+<li>计算当前时间currentTime：在js被加载的时候，用now()会初始化一个原始的开始时间 <code>originalStartTimeMs</code>，然后 <code>now() - originalStartTimeMs</code> 就表示当前时间。</li>
+<li>传入fiber和currentTime。计算fiber的过期时间（优先级），这个过期时间最后的结果应该是Sync=1 也就是同步，首次渲染必然是这个结果。</li>
+<li>创建一个更新，过期时间是Sync=1同步，更新的Payload就是我们需要渲染的React元素，更新完成的回调就是包装了我们传入render函数的回调函数的回调函数。把创建的更新放入根fiber的更新队列。</li>
+<li>把根fiber提交给Scheduler去开始工作。</li>
+<li>至此准备工作已经做完，这就好像是给了一个加速度，下面就会自动不断的运行</li>
+</ul>
+<p>7.由于提交了一个新的Update，并且Scheduler开始安排工作，其实这个Update的优先级是同步的，所以这个Update需要马上执行。请求开始工作，执行同步渲染。首先是创建一个为根fiber创建一个workInProgress fiber，这个fiber表示的是正在执行工作中的fiber，当完成后，原来当前的fiber会被替换成那个fiber。</p>
+<p>8.开始工作，由于是首次渲染，根fiber下面没有任何的child，还没有生成。接着开始遍历整个React元素树，每经过一个元素就创建一个fiber。</p>
+<p>9.自此整个fiber树构建完毕，这也是react应用最初的树。接着会再一次遍历这棵树，创建真实的DOM元素，并且commit到WEB页面中。</p>
+<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><p>除了首次渲染以外，其他的情况触发的都是更新，其实首次渲染是一次特殊的更新。如果触发了一次更新，又是怎么个工作流程呢？</p>
+<ol>
+<li>某个更新会发生在某个元素实例中，首先找到该元素对应的Fiber</li>
+<li>向Scheduler获取更新的过期时间（优先级）</li>
+<li>元素的Updater把更新加入到对应fiber的更新队列中。</li>
+<li>把当前的发生更新的fiber交给Scheduler去根据优先级来安排执行</li>
+</ol>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>通过网上的一些文章，React团队的视频演讲，再加上对于源码的阅读，以上是自己的一个总结和思考理解的过程。<br>理解React Fiber的过程，其实已经是对React整个框架有了一个全面的了解了，React Fiber作为新版React的核心部分，比起老版的实现是完全不同，试一次全面的升级版。了解React Fiber的过程让我对React这个框架有了更深的理解，也会对自己写React前端代码的时候起到指导意义。<br>写完之后发现，还有好多细节没有覆盖，写的过程中含有一些细节，但是在深入研究源码的过程中，其实还有很多的实现细节值得品味，包括更新并发、错误处理、提到的Scheduler、Update等等细节。<br>对于前端知识的限制、React理解的限制、本人思维的限制、语言描述的能力的限制，有些描述可能自己觉得可以，但是别人看来可能就不好理解了，如果有人看到本文，还请各位看客多多包涵。在不断的理解中，我也去不断优化它。<br>总的来说算是对于新版React核心机制的自己的一个总结吧，我觉得新版的React实现不是一天两天能够完全去消化的，React团队花费多年的心血，看着源码确实很多优雅的细节。整个过程不仅仅是理解React的实现机制，也包括前端代码的书写、工程规范、测试等等方方面面都能够学到。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/projects_url">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概念"><span class="toc-number">1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#问题"><span class="toc-number">2.</span> <span class="toc-text">问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-Fiber"><span class="toc-number">3.</span> <span class="toc-text">React Fiber</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#fiber"><span class="toc-number">3.1.</span> <span class="toc-text">fiber</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UpdateQueue-And-Update"><span class="toc-number">3.2.</span> <span class="toc-text">UpdateQueue And Update</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Updater"><span class="toc-number">3.3.</span> <span class="toc-text">Updater</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ExpirationTime-和-Priority"><span class="toc-number">3.3.1.</span> <span class="toc-text">ExpirationTime 和 Priority</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scheduler"><span class="toc-number">3.4.</span> <span class="toc-text">Scheduler</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#requestIdleCallback"><span class="toc-number">3.5.</span> <span class="toc-text">requestIdleCallback</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#执行流程"><span class="toc-number">4.</span> <span class="toc-text">执行流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#首次"><span class="toc-number">4.1.</span> <span class="toc-text">首次</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新"><span class="toc-number">4.2.</span> <span class="toc-text">更新</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结语"><span class="toc-number">5.</span> <span class="toc-text">结语</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/07/25/React-Fiber%E6%BC%AB%E8%B0%88/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/07/25/React-Fiber%E6%BC%AB%E8%B0%88/&text=React Fiber漫谈" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/07/25/React-Fiber%E6%BC%AB%E8%B0%88/&title=React Fiber漫谈" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/07/25/React-Fiber%E6%BC%AB%E8%B0%88/&is_video=false&description=React Fiber漫谈" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=React Fiber漫谈&body=Check out this article: http://yoursite.com/2019/07/25/React-Fiber%E6%BC%AB%E8%B0%88/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/07/25/React-Fiber%E6%BC%AB%E8%B0%88/&title=React Fiber漫谈" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/07/25/React-Fiber%E6%BC%AB%E8%B0%88/&title=React Fiber漫谈" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/07/25/React-Fiber%E6%BC%AB%E8%B0%88/&title=React Fiber漫谈" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/07/25/React-Fiber%E6%BC%AB%E8%B0%88/&title=React Fiber漫谈" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/07/25/React-Fiber%E6%BC%AB%E8%B0%88/&name=React Fiber漫谈&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Lei Chen
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/projects_url">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<!-- clipboard -->
+
+  <script src="/lib/clipboard/clipboard.min.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight .code pre").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

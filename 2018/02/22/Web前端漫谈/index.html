@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="刚开始学习前端的知识的时候，最大的麻烦是各种知识点非常的零散，框架一个跟着一个，各种工具会让人搞得晕头转向。虽然现在的Web应用想服务端的编程的工程方式做了很多的学习效仿，在各种方式上你都能看到服务端的各种编程思想和工程思想，不过毕竟还是有区别，甚至有时候这种前端开发的进化反而不断称为后端同学学习前端的一种障碍。这就好比一个人化个妆的小丑，不知道背后的人长什么样，只知道各种招式很厉害啊，很有意思啊">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web前端漫谈">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;02&#x2F;22&#x2F;Web%E5%89%8D%E7%AB%AF%E6%BC%AB%E8%B0%88&#x2F;index.html">
+<meta property="og:site_name" content="南上南">
+<meta property="og:description" content="刚开始学习前端的知识的时候，最大的麻烦是各种知识点非常的零散，框架一个跟着一个，各种工具会让人搞得晕头转向。虽然现在的Web应用想服务端的编程的工程方式做了很多的学习效仿，在各种方式上你都能看到服务端的各种编程思想和工程思想，不过毕竟还是有区别，甚至有时候这种前端开发的进化反而不断称为后端同学学习前端的一种障碍。这就好比一个人化个妆的小丑，不知道背后的人长什么样，只知道各种招式很厉害啊，很有意思啊">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-20T08:09:55.843Z">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Web前端漫谈</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/projects_url">项目</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2018/05/23/%E6%AF%94%E7%89%B9%E5%B8%81%E4%B9%8B%E6%80%9D/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/05/20/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%97%B6%E4%BB%A3/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2018/02/22/Web%E5%89%8D%E7%AB%AF%E6%BC%AB%E8%B0%88/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2018/02/22/Web%E5%89%8D%E7%AB%AF%E6%BC%AB%E8%B0%88/&text=Web前端漫谈" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2018/02/22/Web%E5%89%8D%E7%AB%AF%E6%BC%AB%E8%B0%88/&title=Web前端漫谈" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2018/02/22/Web%E5%89%8D%E7%AB%AF%E6%BC%AB%E8%B0%88/&is_video=false&description=Web前端漫谈" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Web前端漫谈&body=Check out this article: http://yoursite.com/2018/02/22/Web%E5%89%8D%E7%AB%AF%E6%BC%AB%E8%B0%88/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2018/02/22/Web%E5%89%8D%E7%AB%AF%E6%BC%AB%E8%B0%88/&title=Web前端漫谈" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2018/02/22/Web%E5%89%8D%E7%AB%AF%E6%BC%AB%E8%B0%88/&title=Web前端漫谈" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2018/02/22/Web%E5%89%8D%E7%AB%AF%E6%BC%AB%E8%B0%88/&title=Web前端漫谈" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2018/02/22/Web%E5%89%8D%E7%AB%AF%E6%BC%AB%E8%B0%88/&title=Web前端漫谈" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2018/02/22/Web%E5%89%8D%E7%AB%AF%E6%BC%AB%E8%B0%88/&name=Web前端漫谈&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#关系"><span class="toc-number">1.</span> <span class="toc-text">关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开发历史"><span class="toc-number">2.</span> <span class="toc-text">开发历史</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Web前端漫谈
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">南上南</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2018-02-22T13:05:20.000Z" itemprop="datePublished">2018-02-22</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>刚开始学习前端的知识的时候，最大的麻烦是各种知识点非常的零散，框架一个跟着一个，各种工具会让人搞得晕头转向。虽然现在的Web应用想服务端的编程的工程方式做了很多的学习效仿，在各种方式上你都能看到服务端的各种编程思想和工程思想，不过毕竟还是有区别，甚至有时候这种前端开发的进化反而不断称为后端同学学习前端的一种障碍。这就好比一个人化个妆的小丑，不知道背后的人长什么样，只知道各种招式很厉害啊，很有意思啊！所以任何事物都要认清事物的本质，了解缘由。</p>
+<p>前端的开发，最重要的三样语言那就是大家都知道的 html、css、js这三门语言了，我自认为不仅仅要知道这三种语言的各自的语法，甚至我觉得语法是重要的中间不是那么重要的一个环节，虽然语法会对我们产生障碍，但是往往我们不知道他们来来源，不知道到底是干什么的，不知道为什么一个个框架出现的原因，解决什么问题。不了解这些，反而给我带来了更大的认知障碍。<br>刚开始学习Web前端技术的时候，是通过某一个框架，比如angular框架，然后跟着教程去通过框架的实现方式来一步步的去做，然后发现各种效果如此的神奇，当我们懂了一个框架之后，往往忽略了框架之下的一些东西，而这些东西会让后端的开发十分的费解。</p>
+<h2 id="关系"><a href="#关系" class="headerlink" title="关系"></a>关系</h2><p>首先要了解html、css、js之间的关系。我们从浏览器中看到的所有的页面，最后都是工程师通过编写者三种语言来实现的。这三种语言各司其职，相辅相成。</p>
+<p>可以把三者比作一个人，html好比一个人的肉体，通过肉体我们可以知道哪里是头、哪里是手等等；css好比是人穿的衣服、化的妆，有了css可以让我们变得更漂亮、更吸引人；而JS就像是我们打大脑、灵魂，有了JS我们可以控制我们的身体的各个部位，我们可以控制自己去化什么妆，穿什么衣服了。</p>
+<p>所以就带来了三者的定位：</p>
+<ul>
+<li>HTML：展示<ul>
+<li>在HTML语言中，我们定义了许许多多的Tag，这些Tag就是代表某一种展示元素，比如一个按钮、一个图片、一个链接等，通过各种组合来构建整个页面，每一个元素都有各自的属性，属性用来定义元素的展示行为。</li>
+</ul>
+</li>
+<li>CSS：装饰<ul>
+<li>光有HTML不行，太枯燥了，没有什么色彩，这样的页面是会让人抓狂的。于是有人就发明了CSS这么一个东西，把CSS放在HTML的元素上，来给予元素各种各样的样式 – 展现形式。 CSS本质上是一套预先定义的规则，通过组合一条条的不同规则，从而实现强大的视觉效果。能否把CSS看做是一种编程语言呢？严格意义上可能并不算，不过随着CSS的强大，纯粹使用CSS也能实现令人匪夷所思的应用。下面链接就是展示了纯粹用CSS实现的游戏，让人感叹群众的智慧是无限的啊：<a href="https://codepen.io/collection/AKkZro/" target="_blank" rel="noopener">https://codepen.io/collection/AKkZro/</a></li>
+</ul>
+</li>
+<li>JS：控制<ul>
+<li>有了展示，有了好看的展示，还是觉得不行，虽然有很多的网站只是展示一个好看的页面，确实即使只使用HTML、CSS了，也能达到非常惊人的效果。但是，如果想要实现复杂的交互效果，比如做一个即使战略游戏、做一个电商网站、做一个社交网站，对于这种具有极其复杂的交互功能，那么就需要使用JS这种真正的编程语言了。早期的JS只是被设计来做做简单的提交提交表单之类，但是现在JS早已发展成为极其复杂的生态了。</li>
+</ul>
+</li>
+</ul>
+<p>我觉得这是Web前端的最最本质的东西，现在我们很多时候由于项目紧张等等原因，上来就是学React，直接学习框架，然后知道套路之后，确实可以开始开发了，但是会有一大堆的疑惑，任何时候这三个基础的知识都要反复的看，这就好像，学习Java，然后直接开始用Spring框架来写项目，时间久了，很多时候对于Java本身的一些特性却忘了。框架方便了我们的开发管理，但是有时候会被各类框架所累。</p>
+<p>我觉得还是直接通过MDN官网学习最直接有效，对我们后端开发来说本身已经对计算机各种数据结构算法有了了解，那么这种方式会是最有效的，不从框架开始，而是从基础开始：<a href="https://developer.mozilla.org/en-US/" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/</a></p>
+<h2 id="开发历史"><a href="#开发历史" class="headerlink" title="开发历史"></a>开发历史</h2><p>前端的开发历史发展真的是应验了“分久必合合久必分”这句老话了。</p>
+<p>早期的开发，CSS样式直接写在Html元素的style属性里面，然后js直接写在同一个页面中，由于页面简单加之功能有限，这种方式最简单有效。渐渐地发现代码膨胀之后，这种方式就不好管理代码了，于是进入了下一个时期。这个时期，把CSS、JS从页面中独立了出来，建成单独的文件。有随着代码膨胀、要开发的功能越来越复杂，于是出现了各种各样的框架，首先是JQuery的出现，可以说是开辟了一个时代，突然发现操作网页元素是如此之简单快捷。</p>
+<p>NodeJS时代的来临，我觉得前端第二个大发展时期就是由于NodeJS的出现，它的出现引申出各种新事物：模块化、前端工程化，也使得这种方式得以实现。模块化的出现是随着发展代码量加剧、功能越来越复杂，自然而然能够想到的一种方式，模块化带来了对于依赖的管理，就像是Java管理Jar包一样。紧接着前端工程化开始盛行，工程化的出现主要由于几个原因：</p>
+<ol>
+<li>JS规划发展过快，许多浏览器不支持最新的语法，但是我们想要用最新的语法来开发，于是我们就需要去做编译。</li>
+<li>依赖管理的出现，模块化的产物，前端可引入不同的依赖，那么如何打包不同的依赖，如何管理，这也是工程化的要点。</li>
+<li>自动化的需求，随着代码的复杂度提升、重复劳动的浪费、效率提升要求等等，前端也需要一些自动化的工具来帮助开发人员提效，比如自动代码生成等等</li>
+</ol>
+<p>我们使用Webpack来编译打包工程，我们使用NPM、YARN来管理我们的依赖，我们使用各种NodeJS脚本来实现各种自动化代码。</p>
+<p>离线化和组件化思维的来临，由分到合。我觉得离线化和组件化思维的深入前端人心，是第三个大发展时期。在这个时期几个杀手级的框架出现，改变了我们开发前端的方式，React带来了真正的组件化思维，Html、JS、CSS也已一种组件的方式独立的柔和在一起，Vue做为后起之秀，其学习成本低，快速开发，也是得到了大量的使用。早起的各种框架也在这些框架之下边的黯然失色。在这个时期，还是有一个就是离线化的思维，Google提出了PWA（渐进式Web应用），利用<br>Service Worker，Web Cache，Manifest等技术使得我们的网站可以像一个桌面，手机app一样被安装，在本地保留，得到如同native应用的体验效果。</p>
+<p>未来正在来临，对于下一步的前端发展，我觉得应该是来到智能化前端的阶段。怎么说呢？对于前端我们大多数时候，主要直观的展示，并没有这种智能化的感知。但是不管你承不承认，这个趋势不可挡，而且已经来临了。就我现有的知识结构以及了解的，主要是两个方面的智能化：</p>
+<ul>
+<li>工程智能化 - 数据驱动用户体验<ul>
+<li>我们现有的前端工程的打包、编译，最后采用异步加载还是同步加载，或者各种加载资源的方式，说白了是按照一定的规则来获取。要么我们认为的提前预判来提前把资源加载完，要么用到什么资源的时候再去加载。不管是哪一种方式其实都不是最优的方式，不同的人不同的网络环境等等都会对不同的策略带来不同影响。对于用户来说，希望每次加载所需的部分，最大化体验，又希望当操作某个资源时，这个资源又已经提前加载好了。</li>
+<li>要达到这种效果普通的方式其实已经没办法了，这就需要我们更具用户行为来智能化的打包编译，智能化的预测用户的点击操作行为，并且pre-fetch相对应的资源，从而是用户体验最大化。这就需要我们在工程化阶段加入人工智能、机器学习的方式来实现。</li>
+<li>这一切正在发生：<a href="https://blog.mgechev.com/2018/05/09/introducing-guess-js-data-driven-user-experiences-web/" target="_blank" rel="noopener">https://blog.mgechev.com/2018/05/09/introducing-guess-js-data-driven-user-experiences-web/</a></li>
+</ul>
+</li>
+<li>Web应用智能化<ul>
+<li>随着机器学习的大踏步应用，越来越多的需求，需要能够在端上高效的执行模型。<a href="https://js.tensorflow.org/" target="_blank" rel="noopener">https://js.tensorflow.org/</a></li>
+</ul>
+</li>
+</ul>
+<p>未来的未来，只有变化是不变的，新的框架一定还会出现，新的技术也会不断的出现，不断学习吧，不断思考吧🤔，并化作行动吧。</p>
+<p>重新思索Web前端，对历史、发展趋势、小技巧等等的总结和回顾，让我明白好的Web产品，从前端实现而言是一个个细节堆叠而出。对于未来的初始，智能化在短期内应该会继续发酵（从工程化和代码实现），而我们即使做不到超越，也要紧跟时代的步伐，永远保持虚怀若谷的学习状态。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/projects_url">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#关系"><span class="toc-number">1.</span> <span class="toc-text">关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开发历史"><span class="toc-number">2.</span> <span class="toc-text">开发历史</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2018/02/22/Web%E5%89%8D%E7%AB%AF%E6%BC%AB%E8%B0%88/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2018/02/22/Web%E5%89%8D%E7%AB%AF%E6%BC%AB%E8%B0%88/&text=Web前端漫谈" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2018/02/22/Web%E5%89%8D%E7%AB%AF%E6%BC%AB%E8%B0%88/&title=Web前端漫谈" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2018/02/22/Web%E5%89%8D%E7%AB%AF%E6%BC%AB%E8%B0%88/&is_video=false&description=Web前端漫谈" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Web前端漫谈&body=Check out this article: http://yoursite.com/2018/02/22/Web%E5%89%8D%E7%AB%AF%E6%BC%AB%E8%B0%88/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2018/02/22/Web%E5%89%8D%E7%AB%AF%E6%BC%AB%E8%B0%88/&title=Web前端漫谈" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2018/02/22/Web%E5%89%8D%E7%AB%AF%E6%BC%AB%E8%B0%88/&title=Web前端漫谈" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2018/02/22/Web%E5%89%8D%E7%AB%AF%E6%BC%AB%E8%B0%88/&title=Web前端漫谈" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2018/02/22/Web%E5%89%8D%E7%AB%AF%E6%BC%AB%E8%B0%88/&title=Web前端漫谈" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2018/02/22/Web%E5%89%8D%E7%AB%AF%E6%BC%AB%E8%B0%88/&name=Web前端漫谈&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Lei Chen
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/projects_url">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<!-- clipboard -->
+
+  <script src="/lib/clipboard/clipboard.min.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight .code pre").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

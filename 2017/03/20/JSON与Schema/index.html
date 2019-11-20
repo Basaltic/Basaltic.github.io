@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="JSON数据结构，在互联网时代被广泛的运用在系统调用的交互中。由于其简洁、易懂、可读性好，基本垄断了用户端和服务器之间的数据交换之中。JSON是用来表示数据的，那么表示JSON结构的数据结构是什么呢？哈哈，有点绕口啊，这就是我想要讲的JSON Schema。就像Meta Data（元数据）被称为是描述数据的数据，那么JSON Schema就是描述JSON数据的JSON数据。 JSON Schema">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSON与Schema">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2017&#x2F;03&#x2F;20&#x2F;JSON%E4%B8%8ESchema&#x2F;index.html">
+<meta property="og:site_name" content="南上南">
+<meta property="og:description" content="JSON数据结构，在互联网时代被广泛的运用在系统调用的交互中。由于其简洁、易懂、可读性好，基本垄断了用户端和服务器之间的数据交换之中。JSON是用来表示数据的，那么表示JSON结构的数据结构是什么呢？哈哈，有点绕口啊，这就是我想要讲的JSON Schema。就像Meta Data（元数据）被称为是描述数据的数据，那么JSON Schema就是描述JSON数据的JSON数据。 JSON Schema">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;2017&#x2F;json_syntax.png">
+<meta property="og:updated_time" content="2019-11-20T07:59:02.983Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;2017&#x2F;json_syntax.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>JSON与Schema</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/projects_url">项目</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2017/05/20/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%97%B6%E4%BB%A3/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2017/03/20/JSON%E4%B8%8ESchema/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2017/03/20/JSON%E4%B8%8ESchema/&text=JSON与Schema" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2017/03/20/JSON%E4%B8%8ESchema/&title=JSON与Schema" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2017/03/20/JSON%E4%B8%8ESchema/&is_video=false&description=JSON与Schema" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JSON与Schema&body=Check out this article: http://yoursite.com/2017/03/20/JSON%E4%B8%8ESchema/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2017/03/20/JSON%E4%B8%8ESchema/&title=JSON与Schema" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2017/03/20/JSON%E4%B8%8ESchema/&title=JSON与Schema" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2017/03/20/JSON%E4%B8%8ESchema/&title=JSON与Schema" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2017/03/20/JSON%E4%B8%8ESchema/&title=JSON与Schema" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2017/03/20/JSON%E4%B8%8ESchema/&name=JSON与Schema&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JSON-Schema描述JSON数据格式的JSON！"><span class="toc-number">1.</span> <span class="toc-text">JSON Schema描述JSON数据格式的JSON！</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#还是得想为什么需要JSON-Schema？"><span class="toc-number">2.</span> <span class="toc-text">还是得想为什么需要JSON Schema？</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        JSON与Schema
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">南上南</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2017-03-20T07:18:30.000Z" itemprop="datePublished">2017-03-20</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>JSON数据结构，在互联网时代被广泛的运用在系统调用的交互中。由于其简洁、易懂、可读性好，基本垄断了用户端和服务器之间的数据交换之中。JSON是用来表示数据的，那么表示JSON结构的数据结构是什么呢？哈哈，有点绕口啊，这就是我想要讲的JSON Schema。就像Meta Data（元数据）被称为是描述数据的数据，那么JSON Schema就是描述JSON数据的JSON数据。</p>
+<h2 id="JSON-Schema描述JSON数据格式的JSON！"><a href="#JSON-Schema描述JSON数据格式的JSON！" class="headerlink" title="JSON Schema描述JSON数据格式的JSON！"></a>JSON Schema描述JSON数据格式的JSON！</h2><p>首先上一张图！</p>
+<p><img src="/images/2017/json_syntax.png" alt="JSON数据结构语法"></p>
+<p>Douglas Crockford 发明JSON的时候说整个JSON的数据结构的语法可以完全写在一张名片上，他还真这么做了，这是他的名片的背面。可见JSON格式是多么的简洁啊。我经常会感叹，牛人确实是牛人，伟大的东西一般都很简洁，当然不代表很简单。刚开始了解的时候，会觉得真是简单，当然这只是用起来，可是又一次我想说自己试着写个JSON解析器的时候，就知道多么难了，各种边界情况，各种考虑，最后还是乖乖的看看别人的实现。好像扯远了！</p>
+<p>首先我们要知道，JSON Schema本身也是一个JSON数据结构，用一种特定的JSON数据结构来描述另一个JSON数据结构的结构！！也是够绕的。有点像鸡生蛋、蛋生鸡的味道。<br>一般当我了解到一个东西的时候（尤其是技术、标准），我会去看一下它到底是个什么东西，用来干嘛，怎么实现等等的角度，和身边的小伙伴聊天，看一个技术很多时候最初也是从这个角度来出发了。这里并不想从这些角度来思索这个东西，首先JSON Schema是一个开源标准，任何人都可以使用，主要分两个部分：</p>
+<ul>
+<li>Schema 标准的定义<ul>
+<li>JSON Schema</li>
+<li>JSON Hyper-Schema</li>
+</ul>
+</li>
+<li>Validation 数据结构的验证</li>
+</ul>
+<p>具体的内容可以去这里寻找，整个标准的文档也不算长：<a href="http://json-schema.org/" target="_blank" rel="noopener">http://json-schema.org/</a></p>
+<p>这里还要一些JSON Schema Validation的实现：</p>
+<ul>
+<li><a href="https://github.com/epoberezkin/ajv" target="_blank" rel="noopener">https://github.com/epoberezkin/ajv</a></li>
+<li><a href="http://json-schema.org/implementations.html#validators" target="_blank" rel="noopener">http://json-schema.org/implementations.html#validators</a></li>
+</ul>
+<p>比起怎么实现，我更加想知道它的价值是什么，为什么需要这个标准？能用来干嘛？</p>
+<h2 id="还是得想为什么需要JSON-Schema？"><a href="#还是得想为什么需要JSON-Schema？" class="headerlink" title="还是得想为什么需要JSON Schema？"></a>还是得想为什么需要JSON Schema？</h2><p>描述数据结构的数据结构，让我想起了MetaData - 描述数据的数据。在我们的各种设备中，都会用到各种metadata，比如描述文件，描述图片的，描述文件夹的等等。<br>首先想到的是一些场景可以用到：</p>
+<ul>
+<li>当我们创建一种JSON结构来前后端通信的时候，如果校验比较严格，那么可以为每一种结构创建JSON Schema然后用来数据结构的校验。</li>
+<li>又比如比如我们希望用一种结构让前端的渲染和数据结构来对应起来，然后希望可以编辑，那么就需要一种Schema来生成编辑器。通过Schema生成的编辑器就可以最终变成我们指定的结构。</li>
+</ul>
+<p>其实第二种场景比较常见，如果我们想创作一个像Sketch的编辑器，那么里面有很多的组件，编辑器的生成可能就是通过一些列的Schema来生成，其实最后生成的最终结构也是一个JSON。这里其实是对自己的一些项目是有启发式的，很多时候我们绞尽脑汁的想一个结构来描述属性、样式等等，其实直接使用JSON Schema的标准来实现，是事半功倍的。</p>
+<p>很多时候我们希望能够创造出一种产品，可以通过配置配置，通过拖拖拽拽。或者我们不想每次都重复开发，不希望做自定义化产品，比如crm系统、建站工具等等，那么我们可能就需要一种标准来描述整个系统、模块、组件等等本身，通过一种统一的标准来把多个东西拼接在一起。或许在这种时候，我们也可以用到。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/projects_url">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JSON-Schema描述JSON数据格式的JSON！"><span class="toc-number">1.</span> <span class="toc-text">JSON Schema描述JSON数据格式的JSON！</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#还是得想为什么需要JSON-Schema？"><span class="toc-number">2.</span> <span class="toc-text">还是得想为什么需要JSON Schema？</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2017/03/20/JSON%E4%B8%8ESchema/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2017/03/20/JSON%E4%B8%8ESchema/&text=JSON与Schema" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2017/03/20/JSON%E4%B8%8ESchema/&title=JSON与Schema" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2017/03/20/JSON%E4%B8%8ESchema/&is_video=false&description=JSON与Schema" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JSON与Schema&body=Check out this article: http://yoursite.com/2017/03/20/JSON%E4%B8%8ESchema/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2017/03/20/JSON%E4%B8%8ESchema/&title=JSON与Schema" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2017/03/20/JSON%E4%B8%8ESchema/&title=JSON与Schema" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2017/03/20/JSON%E4%B8%8ESchema/&title=JSON与Schema" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2017/03/20/JSON%E4%B8%8ESchema/&title=JSON与Schema" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2017/03/20/JSON%E4%B8%8ESchema/&name=JSON与Schema&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Lei Chen
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/projects_url">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<!-- clipboard -->
+
+  <script src="/lib/clipboard/clipboard.min.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight .code pre").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

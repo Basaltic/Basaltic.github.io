@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="背景在业务发展过程中，经常有一些意外的情况出现，比如突然页面白屏了、某些浏览器兼容不了、发布比较慢等等各种问题，很自然的，发生了什么问题，那么就解决吧，这种直截了当的思路，一般不会错，但是带来的结果就是不断的救火的过程。也是因为这个背景、这个原因，我开始着手治理前端项目，从各个方面，一边不影响现有业务的进化，一边做着项目的优化治理。这些问题的发生，也让感受到有一些更加深层次的底层问题，不仅仅只是代">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记一次前端治理过程和总结">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;10&#x2F;%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93&#x2F;index.html">
+<meta property="og:site_name" content="南上南">
+<meta property="og:description" content="背景在业务发展过程中，经常有一些意外的情况出现，比如突然页面白屏了、某些浏览器兼容不了、发布比较慢等等各种问题，很自然的，发生了什么问题，那么就解决吧，这种直截了当的思路，一般不会错，但是带来的结果就是不断的救火的过程。也是因为这个背景、这个原因，我开始着手治理前端项目，从各个方面，一边不影响现有业务的进化，一边做着项目的优化治理。这些问题的发生，也让感受到有一些更加深层次的底层问题，不仅仅只是代">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;cdn.nlark.com&#x2F;yuque&#x2F;0&#x2F;2019&#x2F;png&#x2F;114891&#x2F;1571647090518-46b23e99-cdec-4018-81b9-9a2151e5683d.png#align=left&amp;display=inline&amp;height=124&amp;name=three.png&amp;originHeight=124&amp;originWidth=681&amp;search=&amp;size=14137&amp;status=done&amp;width=681">
+<meta property="og:image" content="https:&#x2F;&#x2F;cdn.nlark.com&#x2F;yuque&#x2F;0&#x2F;2019&#x2F;png&#x2F;114891&#x2F;1571647103025-778c588d-27ff-4e65-b3ac-d32a3281a34e.png#align=left&amp;display=inline&amp;height=219&amp;name=CiFlow.png&amp;originHeight=219&amp;originWidth=2133&amp;search=&amp;size=53399&amp;status=done&amp;width=2133">
+<meta property="og:updated_time" content="2019-11-20T07:58:45.922Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;cdn.nlark.com&#x2F;yuque&#x2F;0&#x2F;2019&#x2F;png&#x2F;114891&#x2F;1571647090518-46b23e99-cdec-4018-81b9-9a2151e5683d.png#align=left&amp;display=inline&amp;height=124&amp;name=three.png&amp;originHeight=124&amp;originWidth=681&amp;search=&amp;size=14137&amp;status=done&amp;width=681">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>记一次前端治理过程和总结</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/projects_url">项目</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2019/09/25/%E6%90%9E%E6%87%82%E6%8A%BD%E8%B1%A1%E8%AF%AD%E6%B3%95%E6%A0%91%EF%BC%88AST%EF%BC%89/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&text=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&is_video=false&description=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=记一次前端治理过程和总结&body=Check out this article: http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&name=记一次前端治理过程和总结&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#背景"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#问题"><span class="toc-number">2.</span> <span class="toc-text">问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决思路"><span class="toc-number">3.</span> <span class="toc-text">解决思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决过程细节总结"><span class="toc-number">4.</span> <span class="toc-text">解决过程细节总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#第一步，主动发现"><span class="toc-number">4.1.</span> <span class="toc-text">第一步，主动发现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二步-工程效率"><span class="toc-number">4.2.</span> <span class="toc-text">第二步 - 工程效率</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#本地工程改造"><span class="toc-number">4.2.1.</span> <span class="toc-text">本地工程改造</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#发布流程改造"><span class="toc-number">4.2.2.</span> <span class="toc-text">发布流程改造</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第三步-代码层面改造"><span class="toc-number">4.3.</span> <span class="toc-text">第三步 - 代码层面改造</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#架构、基础组件库变更"><span class="toc-number">4.3.1.</span> <span class="toc-text">架构、基础组件库变更</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#其他"><span class="toc-number">4.3.2.</span> <span class="toc-text">其他</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#写在最后的思考"><span class="toc-number">5.</span> <span class="toc-text">写在最后的思考</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        记一次前端治理过程和总结
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">南上南</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-11-10T12:32:19.000Z" itemprop="datePublished">2019-11-10</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在业务发展过程中，经常有一些意外的情况出现，比如突然页面白屏了、某些浏览器兼容不了、发布比较慢等等各种问题，很自然的，发生了什么问题，那么就解决吧，这种直截了当的思路，一般不会错，但是带来的结果就是不断的救火的过程。也是因为这个背景、这个原因，我开始着手治理前端项目，从各个方面，一边不影响现有业务的进化，一边做着项目的优化治理。这些问题的发生，也让感受到有一些更加深层次的底层问题，不仅仅只是代码问题。</p>
+<p>一个ToB的产品，从前端的形态角度，其中一个dashboard式的中后台的管理系统的这么一种形式。大多数的页面、组件是非常相似重复的，基本上是纯工作量，也有一些非常复杂的逻辑的页面和功能，比如富文本编辑器(这个功能的代码量比项目里面其他功能的代码加起来可能还要多)、活动编辑（页面看似简单，逻辑极其错综复杂，各种规则配置）等等。对于前端代码层面来说，其具有了两面性，有工具产品的复杂技术性，也有纯粹展示的重复简单性。</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>解决问题之前，首先得搞清楚问题到底是什么。从问题的外在表现，大概分为下面几类问题：</p>
+<ul>
+<li>纯粹的bug：点着点着，会出现报错，白屏等问题 - 通常这个是因为代码层面的逻辑漏洞所导致，测试不充分，代码的鲁棒性不够！</li>
+<li>兼容问题：在某些浏览器中行为不一致，或者干脆白屏（比如在IE中）！</li>
+<li>工程效率问题：知道了代码问题，修复、hotfix发布流程不稳定，有时候需要长达1个小时都发不完！本地调试，hot reload，编译的速度都有一些问题。</li>
+<li>人为操作的问题：操作发布，本地编译，合并代码，发布分支等等都需要手动选择然后完成，自己也是多次操作出错！</li>
+<li>其中还隐含了一个问题就是，这些bug的发现都是后知后觉的，没有比较好的办法主动发现问题。</li>
+</ul>
+<h2 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h2><p>这些问题总结来说就是 人为干预过多、规范测试的缺乏、工程效率的低下。<br>这些问题也不是什么新鲜的问题，很多开发者，很多人都会遇到这些相似的问题，开发者几乎每天都会遇到这些问题。出现了问题，然后改，出了改、出了改这种救火的方式适合临时解决，但是不是长久之计。不能仅仅思考为什么会出现问题，然后解决问题，但其实问题是解决不完的。必须假设肯定会出问题，所以容错、主动发现错误是非常重要的。</p>
+<p>在这样的理念下，整体的解决思路是三步走。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/114891/1571647090518-46b23e99-cdec-4018-81b9-9a2151e5683d.png#align=left&display=inline&height=124&name=three.png&originHeight=124&originWidth=681&search=&size=14137&status=done&width=681" alt="three.png"></p>
+<ul>
+<li>完善主动发现问题的机制</li>
+<li>提高工程效率，提高解决问题的效率，直观的讲是从 编码 - 编译 - 部署 整个流程的效率优化</li>
+<li>深入代码层面，优化代码结构、架构，沉淀规范</li>
+</ul>
+<p>由外而内的解决，如下图所示，一层一层，直到代码层面。代码重构放在最后去做是因为如果没有较好的主动问题发现，工程效率（发布、部署等等持续集成），那么代码的修改会非常的危险，而且代码的重构是最话时间的，不可能一蹴而就，而是通过多个迭代，一点点的迁移。</p>
+<h2 id="解决过程细节总结"><a href="#解决过程细节总结" class="headerlink" title="解决过程细节总结"></a>解决过程细节总结</h2><p>在治理的过程中，给自己定一个简单的原则</p>
+<ul>
+<li>有好的轮子就不要造轮子</li>
+<li>在解决的过程中，使用的是最成熟的方案，使用已有的好轮子。</li>
+</ul>
+<h3 id="第一步，主动发现"><a href="#第一步，主动发现" class="headerlink" title="第一步，主动发现"></a>第一步，主动发现</h3><p>出现问题不可怕，可怕的是不知道会有问题发生，不知道哪里出了问题，永远是别人比自己先发现问题。<br>最外层的机制是通过一些手段，能够让我们主动感知问题发生，然后在别人发现前修复之，扼杀在摇篮之中。<br>这一步比较快速的可以完成，主要添加以下一些机制来保障：</p>
+<ul>
+<li>错误监控，通过接入内部的Sentry来查看，上报没有被catch住的错误。</li>
+<li>数据监控，通过接入<a href="https://mta.qq.com" target="_blank" rel="noopener">MTA</a>来查看全方位的数据（pv，uv，性能，访问深度，自定义事件等等），这些数据一方面对于业务也有指导意义，一方面可以给我们技术参考，哪些页面的性能等指导，通过自定义事件可以比较精准的发现隐藏的逻辑问题等等</li>
+<li>静态分析，静态扫描代码，可以主动发现一些代码层面的问题（安全漏洞，高全复杂度的逻辑等等）</li>
+</ul>
+<p>这些机制虽然不能保证可以发现任何一个问题，但是一定程度上可以了解到应用运行的一些状况，通过一些打点数据，可以提前知道发现一些问题。然后可以主动的去解决。</p>
+<h3 id="第二步-工程效率"><a href="#第二步-工程效率" class="headerlink" title="第二步 - 工程效率"></a>第二步 - 工程效率</h3><h4 id="本地工程改造"><a href="#本地工程改造" class="headerlink" title="本地工程改造"></a>本地工程改造</h4><p>使用<a href="https://www.npmjs.com/package/react-scripts" target="_blank" rel="noopener">react-scripts</a> 来替换原有的自定义webpack脚本。react-scripts基本上可以达到零配置的构建react SPA的应用，其本质是对webpack的封装，使用之大大减少了自己维护构建脚本的成本，只需要一些小的改动就可以满足。和原来相比，有以下提升：</p>
+<ul>
+<li>减少脚本的维护成本，去除原本自己维护的webpack脚本，以及一些hack的脚本</li>
+<li>增加原本缺少的lint规则，更加严格的lint，可以提高代码的质量</li>
+<li>更快构建速度，更快的热重载</li>
+</ul>
+<p>对于基于react单页应用的零配置构建，社区中已经非常的成熟，完善。我觉得在小团队的情况下，去了解这些技术原理使用是有必要的，但是自己重头配置调试已经非常的没有必要，徒增增加维护成本。</p>
+<h4 id="发布流程改造"><a href="#发布流程改造" class="headerlink" title="发布流程改造"></a>发布流程改造</h4><blockquote>
+<p>老的发布流程：开发完毕 -&gt; 本地编译 -&gt; 提交git -&gt; 提交ars单 -&gt; 走ars单的发布</p>
+</blockquote>
+<p>这个流程中遇到有几个问题：<br>1.本地编译，每个开发者环境不同，导致每个人编译的hash不同，产生冲突，并且这些编译后的文件提交到git，使得git仓库臃肿<br>2.ars发布需要必须走完测试、beta、生产的流程，并且ars在任何一个流程，都需要比对文件，由于前端编译后会带上内容的hash作为文件名的一部分，这就导致每次发布文件名不同，积累的文件过多，而ars需要每次diff比较，导致任何一步都非常的缓慢，有时候修复个bug，走一边发布流程，1个小时都没发完。</p>
+<blockquote>
+<p>新的流程：开发完毕 -&gt; 提交git -&gt; 跑测试 -&gt; 编译机编译 -&gt;  发布静态文件（js，css等）-&gt; 发布index.html至web服务器</p>
+</blockquote>
+<p>自定义整套流程，把编译放在统一的编译机上处理。真正发布的时候，先把资源类静态文件（js，css，media等）发布到cdn服务器，由于这文件带有hash，所有不会覆盖线上的静态文件，暂停流程，等cdn生效后，把index.html入口文件发布到web服务器中，从而线上生效。细节的具体流程见下图。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/114891/1571647103025-778c588d-27ff-4e65-b3ac-d32a3281a34e.png#align=left&display=inline&height=219&name=CiFlow.png&originHeight=219&originWidth=2133&search=&size=53399&status=done&width=2133" alt="CiFlow.png"></p>
+<p>新老流程的主要区别就是采用持续集成工具，把编译、测试、部署等流程都标准化自动化，重点在于<strong>自动化</strong>。流程改变重要的不是流程改成了怎样，而是尽可能的标准化、自动化，减少过人为参与关键部分的可能，从而减少人为操作的可能，并且使得每一次的编译部署产物都是相同的。</p>
+<p>改变所产生的效果是：</p>
+<ul>
+<li>统一编译环境，不会因为开发人员本机环境不同，可能导致的编译结果的差异</li>
+<li>没有人为的编译操作，减少出错的可能性</li>
+<li>使用自定义ci流程，使得发布流程更加可自定义，可控，可以加入更加自定义的能力（比如灰度等等）</li>
+<li>使用ci，缩短了发布的时间，现在大约5 - 10分钟完成从编译、测试、beta到线上部署的流程。</li>
+</ul>
+<h3 id="第三步-代码层面改造"><a href="#第三步-代码层面改造" class="headerlink" title="第三步 - 代码层面改造"></a>第三步 - 代码层面改造</h3><p>有了上一层的改造，整个开发的效率得到提高，现在终于到了代码层面的改造了。到了这一层，就需要深入代码细节来做改造。</p>
+<h4 id="架构、基础组件库变更"><a href="#架构、基础组件库变更" class="headerlink" title="架构、基础组件库变更"></a>架构、基础组件库变更</h4><p>项目原始使用的react + mobx的状态管理方式，mobx本身是非常厉害的库，但是mobx本身脱离了react未来的发展路线，更加的大的问题是mobx相当于带来了一种双向数据绑定的效果，这导致代码的书写可以随意的赋值变量值，然后ui自动刷新，随着代码量增多，尤其是比较复杂的功能，这种方式导致状态的不可控，不可追踪。当然不是说mobx不可能单向数据流，毕竟单向数据流是一种理念，但是mobx太方便了，导致很难强制，所以改用Redux，redux强制了单向数据流的写法，直接规定死，这样防止过于自由导致不可控。</p>
+<p>随着react hook的发布，react团队不断的强化 immutable + functional 的理念，可以看到未来react还是会往这个方向发展。从mobx改为采用 redux + immer 方式来管理应用的状态，拥抱react hook，优先functional component形式。其他保持不变。</p>
+<p>还有一个变动就是基础组件库的变更，由于早期采用的基础组件库bere不在维护，所以改用tea组件库作为替换。</p>
+<p>代码改造没法一蹴而就，整个重构通过了3个版本的迭代完成（3个月左右），所以在一定的时间内有两种不同风格的架构、代码、组件库存在。改造的原则是：</p>
+<ul>
+<li>新的页面功能采用新的方案</li>
+<li>旧的功能分迭代，分批重构，充分测试</li>
+</ul>
+<p>在重构的过程中，出现过一些改造的问题，虽然是按照老的逻辑平迁，但还是会遇到一些坑：</p>
+<ul>
+<li>mobx平迁为react hook的方式，会有以下问题需要注意，react hook状态更新，刷新ui的方式并非是mobx的同步，而是异步，合并结算的。对于需要同步的值，需要使用useRef来暂存，从而达到同步的效果。这也是我在重构的过程中，不断碰到的问题，保持小心。</li>
+</ul>
+<p>这些坑让自己警醒反思，要细致小心，以方面也让我加深了对react的理解。</p>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p>除了上述和技术本身相关度较大的改造，还有一些周边的完善，来进一步提高项目的可维护性。</p>
+<ul>
+<li>完善文档，通过Readme, Wiki。写清楚本地调试，发布部署流程，目录结构，代码工程规范等等</li>
+<li>测试：主要是关键公共组件、方法的单元测试，并且和ci结合</li>
+<li>指定工程、代码、目录的规范。</li>
+<li>一些细节补充：<ul>
+<li>使用Error Boundary来使得错误的逻辑不至于使得整个APP崩溃。Error Boundary检测到错误后fallback为一个提示</li>
+<li>页面、组件相关文件自包含，所有相关的文件放在同一个文件夹内，通过业务来区分。而非早期的按page、component这种类型来分。</li>
+<li>由于css是有重构的同事提供，通过使用 purgecss 在编译前把不需要的css去除，减少css的大小。</li>
+</ul>
+</li>
+</ul>
+<p>我相信不仅仅代码需要写得好，也需要注重注释、文档这种细节，很多时候一个逻辑，写得时候很清楚，但是自己过几月再看，或者换一个来看，可能就看不懂了，项目的可传承性、可维护性也是非常重要的。</p>
+<h2 id="写在最后的思考"><a href="#写在最后的思考" class="headerlink" title="写在最后的思考"></a>写在最后的思考</h2><p>虽然可以通过各种不同的方法来提高代码质量，减少人为的操作，但是不管如何去做，在智能化没有来到前，最后都会有一个极限，最后产品的逻辑代码还是需要每一位开发者自己来书写，需要测试来测试，人为的引入错误依然是无可避免的。隐约记得 Erlang的作者 Joe Armstrong，在设计Erlang语言的时候，就考虑到如何容错，可以自动从错误中恢复，在AT&amp;T使用Erlang编写的电信系统中，创造了几十年没有发生事故的记录。</p>
+<p>一方面，我们开发者需要细致、考虑全面，另一方面，需要知道发生错误是不可能避免的，所以考虑如何从错误中恢复，如何把错误保持在最小粒度可能是更重要的命题！</p>
+<p>路漫漫其修远兮，共勉之~</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/projects_url">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#背景"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#问题"><span class="toc-number">2.</span> <span class="toc-text">问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决思路"><span class="toc-number">3.</span> <span class="toc-text">解决思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决过程细节总结"><span class="toc-number">4.</span> <span class="toc-text">解决过程细节总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#第一步，主动发现"><span class="toc-number">4.1.</span> <span class="toc-text">第一步，主动发现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二步-工程效率"><span class="toc-number">4.2.</span> <span class="toc-text">第二步 - 工程效率</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#本地工程改造"><span class="toc-number">4.2.1.</span> <span class="toc-text">本地工程改造</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#发布流程改造"><span class="toc-number">4.2.2.</span> <span class="toc-text">发布流程改造</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第三步-代码层面改造"><span class="toc-number">4.3.</span> <span class="toc-text">第三步 - 代码层面改造</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#架构、基础组件库变更"><span class="toc-number">4.3.1.</span> <span class="toc-text">架构、基础组件库变更</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#其他"><span class="toc-number">4.3.2.</span> <span class="toc-text">其他</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#写在最后的思考"><span class="toc-number">5.</span> <span class="toc-text">写在最后的思考</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&text=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&is_video=false&description=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=记一次前端治理过程和总结&body=Check out this article: http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&name=记一次前端治理过程和总结&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Lei Chen
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/projects_url">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<!-- clipboard -->
+
+  <script src="/lib/clipboard/clipboard.min.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight .code pre").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

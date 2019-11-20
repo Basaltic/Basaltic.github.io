@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="React框架的出现，意味着前端进入了一个新的时代。 刚开始使用React觉得很爽，挺好用的嘛，不过做着做着发现，理解react整个生态，理解整个Js的生态，理解样式，理解结构前端才是最难的部分。不过这里我只想谈谈自己对React的一些了解和认知吧，关于生态的东西我后面再聊。自己的感觉学习整个React的开发生态，还是很陡峭的，React框架本身还是很好理解的，不过如果加上各种东西柔和在一起，那真">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React漫谈">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;06&#x2F;25&#x2F;React%E6%BC%AB%E8%B0%88&#x2F;index.html">
+<meta property="og:site_name" content="南上南">
+<meta property="og:description" content="React框架的出现，意味着前端进入了一个新的时代。 刚开始使用React觉得很爽，挺好用的嘛，不过做着做着发现，理解react整个生态，理解整个Js的生态，理解样式，理解结构前端才是最难的部分。不过这里我只想谈谈自己对React的一些了解和认知吧，关于生态的东西我后面再聊。自己的感觉学习整个React的开发生态，还是很陡峭的，React框架本身还是很好理解的，不过如果加上各种东西柔和在一起，那真">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;cdn.yuque.com&#x2F;yuque&#x2F;0&#x2F;2018&#x2F;png&#x2F;114891&#x2F;1527727705525-3d26a74c-1221-4066-b9b5-9bfa3ebccde6.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cdn.yuque.com&#x2F;yuque&#x2F;0&#x2F;2018&#x2F;jpeg&#x2F;114891&#x2F;1528032534662-29054566-39aa-451c-8a8a-92d138727da3.jpeg">
+<meta property="og:updated_time" content="2019-11-20T08:14:40.750Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;cdn.yuque.com&#x2F;yuque&#x2F;0&#x2F;2018&#x2F;png&#x2F;114891&#x2F;1527727705525-3d26a74c-1221-4066-b9b5-9bfa3ebccde6.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>React漫谈</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/projects_url">项目</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2019/07/05/react%E6%A1%86%E6%9E%B6%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E6%BC%AB%E8%B0%88/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2018/05/23/%E6%AF%94%E7%89%B9%E5%B8%81%E4%B9%8B%E6%80%9D/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/06/25/React%E6%BC%AB%E8%B0%88/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/06/25/React%E6%BC%AB%E8%B0%88/&text=React漫谈" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/06/25/React%E6%BC%AB%E8%B0%88/&title=React漫谈" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/06/25/React%E6%BC%AB%E8%B0%88/&is_video=false&description=React漫谈" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=React漫谈&body=Check out this article: http://yoursite.com/2019/06/25/React%E6%BC%AB%E8%B0%88/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/06/25/React%E6%BC%AB%E8%B0%88/&title=React漫谈" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/06/25/React%E6%BC%AB%E8%B0%88/&title=React漫谈" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/06/25/React%E6%BC%AB%E8%B0%88/&title=React漫谈" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/06/25/React%E6%BC%AB%E8%B0%88/&title=React漫谈" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/06/25/React%E6%BC%AB%E8%B0%88/&name=React漫谈&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#理念"><span class="toc-number">1.</span> <span class="toc-text">理念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基础理论概念"><span class="toc-number">2.</span> <span class="toc-text">基础理论概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Transformation"><span class="toc-number">2.1.</span> <span class="toc-text">Transformation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Abstraction"><span class="toc-number">2.2.</span> <span class="toc-text">Abstraction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Composition-（And-Inheritance）"><span class="toc-number">2.3.</span> <span class="toc-text">Composition （And Inheritance）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#State-And-Update"><span class="toc-number">2.4.</span> <span class="toc-text">State And Update</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Memoization"><span class="toc-number">2.5.</span> <span class="toc-text">Memoization</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reconciliation"><span class="toc-number">2.6.</span> <span class="toc-text">Reconciliation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scheduling"><span class="toc-number">2.7.</span> <span class="toc-text">Scheduling</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生命周期"><span class="toc-number">3.</span> <span class="toc-text">生命周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#理解JSX"><span class="toc-number">4.</span> <span class="toc-text">理解JSX</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#理解Virtual-DOM树和Diffing算法"><span class="toc-number">5.</span> <span class="toc-text">理解Virtual DOM树和Diffing算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#算法执行步骤"><span class="toc-number">5.1.</span> <span class="toc-text">算法执行步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#React应用的性能优化点："><span class="toc-number">5.2.</span> <span class="toc-text">React应用的性能优化点：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#理解React-Fiber架构"><span class="toc-number">5.3.</span> <span class="toc-text">理解React Fiber架构</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        React漫谈
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">南上南</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-06-25T12:00:13.000Z" itemprop="datePublished">2019-06-25</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>React框架的出现，意味着前端进入了一个新的时代。</p>
+<p>刚开始使用React觉得很爽，挺好用的嘛，不过做着做着发现，理解react整个生态，理解整个Js的生态，理解样式，理解结构前端才是最难的部分。不过这里我只想谈谈自己对React的一些了解和认知吧，关于生态的东西我后面再聊。自己的感觉学习整个React的开发生态，还是很陡峭的，React框架本身还是很好理解的，不过如果加上各种东西柔和在一起，那真是挺烦躁的！！不过嘛，我们工程师就是为了搞清这些东西而存在的！！</p>
+<p>之前在在‘认知Web前端’中，我觉得现代的Web前端的发展是分分合合，到了React我觉是首次实现了分和合的高境界。所谓的分是组件化的思维，所谓合是前端技术栈的开发方式之合。组件化的思维其实很早就出现，但是没有很好的实现，知道React的出现，把其推向的高潮。而与此同时迎着组件化的浪潮，我们的开发方式也是把原来的html、css、js全都柔和在了一次开发，组件作为单体是合，作为一个更大的整体的一部分又是分。而这使得复用性、开发效率大大提升。<br><strong>这里是我使用学习React框架，写前端有一段时间了，参考各种文章以来的一些总结吧。整个是比较粗粒度了，后面我想对每一个有意思的部分都单独写一篇文章来详细深入了解。不断去理解深入实践，不断的更新这里的认知。</strong></p>
+<h2 id="理念"><a href="#理念" class="headerlink" title="理念"></a>理念</h2><p>Web前端的主要开发技术HTML、CSS、JS三大金刚。其中只有JS是一个图灵完备的编程语言，这也使得只有JS能够更加灵活，能够解决所有的计算问题。为什么这里要提一下这个呢？<br>因为我觉得这就是React的理念，把JS作为主体，H5、CSS作为辅助，使用JS来控制构建HTML、CSS。并且React也做到了这一点，而且随着整个生态的扩展，这种趋势越发明显。<br>在React的官网上它把自己定位为：</p>
+<p><img src="https://cdn.yuque.com/yuque/0/2018/png/114891/1527727705525-3d26a74c-1221-4066-b9b5-9bfa3ebccde6.png" alt="image.png | center | 747x188"></p>
+<p>正是因为这一理念，让React变得无比强大。我们不是在h5中嵌入JS来控制它，而是我们用JS来完全控制整个绘制、交互的一切，而HTML和CSS变成了JS的一个附属品。原来JS、CSS不过是HTML的一个附属品。整个关系链路发生了反转式的变化。</p>
+<h2 id="基础理论概念"><a href="#基础理论概念" class="headerlink" title="基础理论概念"></a>基础理论概念</h2><p>有一些基本的概念我们首先需要了解一下，这些概念在我看来是为我自身构建了一个内在的模型去理解React背后的设计原理，这里许多的概念都是可以水平迁移的，了解这些对了解相似框架，以及背后的思考极为重要。当这些概念内化到我们内心的时候，就形成了一张图，来龙去脉，即使是对我们书写代码、架构React应用也有着极好的作用，也对于我们理解前端的一些原理有着很好的作用。</p>
+<h3 id="Transformation"><a href="#Transformation" class="headerlink" title="Transformation"></a>Transformation</h3><p>UI到底是什么？我们在屏幕上所看到的到底是什么？React团队给到的答案是，我们所看到的UI，是背后数据的一个映射；不同的数据反映不同的UI展现。这个答案简单但是极为重要。</p>
+<h3 id="Abstraction"><a href="#Abstraction" class="headerlink" title="Abstraction"></a>Abstraction</h3><p>抽象的意义是：我们不可能通过一个组件就去构建一个应用，而是通过把React应用分解成一个个复用的组件来去组合。组件化的过程其实就是抽象的过程，比如理解业务，构建通用的业务组件，这是一种抽象的能力。比如我们平时用的Ant Design的组件，本身这个设计规范就是一种抽象能力的体现，抽象出真正可以长期复用的组件出来。</p>
+<p>这种抽象能力使我们这些程序员非常重要的一个能力，以前很多时候更多的在后端中会提到抽象，因为后端是看不见摸不着的，所以我们更多的去强调，但是现在作为前端，我们也需要这种能力。组件化的本质是一种抽象的能力，这种能力可大可小，小的我们在一个项目中抽象一些业务组件，大的就像做一个Ant Design一样的基础组件库，更大的可能是更加抽象的组件，比如React Motion这类的。这种抽象的能力会伴随着我们的职业生涯，这也是需要我不断精进的地方。</p>
+<h3 id="Composition-（And-Inheritance）"><a href="#Composition-（And-Inheritance）" class="headerlink" title="Composition （And Inheritance）"></a>Composition （And Inheritance）</h3><p>在后端领域就一直有组合还是继承的争论，什么时候用组合？什么时候用继承？不过在React里面的Composition的概念和后端是有一些不同的，继承的概念比较相似。我也是刚开始通过和后端的概念的类比，比较去理解的。在React官方的最佳实践中其实是不推荐使用继承的，这也是我踩得坑，之前因为一些后端的思路，在项目中用了大量的继承，后来发现这样是不可行的。这也是提醒了自己，对于不同的领域知识，即使有的概念相似，但是也不能生搬硬套去应用相同的思路，可以参考帮助理解，但是如果完全使用后端的思路去写前端，真的会有大麻烦的。</p>
+<h3 id="State-And-Update"><a href="#State-And-Update" class="headerlink" title="State And Update"></a>State And Update</h3><p>每一个组件实例都会在它的内部保存一份状态，状态其实是组件内部的数据，这些数据通常用来控制、存储一些元素的属性值。比如一个输入框，输入框用户输入的值我们可以保存在状态中。<br>状态的更改会伴随着一次更新，通常我们使用setState来更改状态数据，数据的变化最终会导致组件的重新渲染（或局部重新渲染）。</p>
+<h3 id="Memoization"><a href="#Memoization" class="headerlink" title="Memoization"></a>Memoization</h3><p>每一个我们写的React组件其实是一个function，当我们用高级语法写的时候会忽略这么一个概念，最后react是在执行一个个的function。这就遇到一个问题就是如果fuction的入参相同，那么其实function的结果都是相同的，每次不断的执行function其实是有消耗的，所以在React的内部会有一个机制，对于反复相同的function，入参相同那么就只执行一次，后面直接拿结果就好了。<br>这就好像我们把1*1的结果直接保存，而不是每次都去计算一个1*1然后得到结果。这种优化方式还是会经常碰到的。</p>
+<h3 id="Reconciliation"><a href="#Reconciliation" class="headerlink" title="Reconciliation"></a>Reconciliation</h3><p>不知道怎么样能够很好的翻译这个词，所谓的Reconciliation就是React所使用的算法用来区分一棵树和另外一棵树之间的区别，找到哪些部分需要更新。Reconciliation是这种算法的名称，就我所知，React15及之前和React16分别有两个不同的实现，这个后面我会讲到。</p>
+<h3 id="Scheduling"><a href="#Scheduling" class="headerlink" title="Scheduling"></a>Scheduling</h3><p>调度安排的作用其实就是去安排一系列的工作如何执行、何时执行。</p>
+<h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><p>React通过一系列的计算，最后的目的是渲染成Web页面也就是一棵DOM树，然后有因为一些比如我们的操作关闭了页面等等，最后整个DOM树销毁了。这样一个从计算到渲染再到销毁的过程，就好像是一个生命从出生到死亡的生命历程。这个就是一个生命周期，有了生命周期，我们就可以更好去控制React在不同的阶段的操作。<br>那么在整个过程中，React是一步一步的做的，就好像是一个管道，中间会有很多步，那么React在中间的许多步都埋了一个一个的钩子，这一个个的钩子就是React暴露给我们能够在生命周期内自定义的部分。下面列举了React提供的生命周期的函数：</p>
+<ul>
+<li>componentWillMount</li>
+<li>componentDidMount</li>
+<li>componentWillReceiveProps</li>
+<li>getSnapshotBeforeUpdate</li>
+<li>shouldComponentUpdate</li>
+<li>componentWillUpdate</li>
+<li>componentDidUpdate</li>
+<li>render</li>
+<li>componentWillUnmount</li>
+<li>componentDidCatch</li>
+</ul>
+<p>以上在React15及之前的版本都是可用的，但是React16之后有些生命周期被移除了。<br>可以先参考这里的文档了解详情：<a href="https://reactjs.org/docs/react-component.html" target="_blank" rel="noopener">https://reactjs.org/docs/react-component.html</a></p>
+<h2 id="理解JSX"><a href="#理解JSX" class="headerlink" title="理解JSX"></a>理解JSX</h2><p>JSX是React团队创建的一种语法糖吧，方便我们开发人员可以在JS里面书写HTML形式的Tag。它只是开发阶段的过渡形式，在编译之后会转换成一个个的Function。你如我们可以这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> helloWorld = <span class="xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello World <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 我们可以对比一下不用JSX。 // 上面的编译后就自动转换为下面的了，方便很多！</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> hellWorld = React.createElement(<span class="string">'p'</span>,<span class="literal">null</span>, <span class="string">'Hello World'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>有了JSX之后变得非常的直观，上面的例子，如果没有JSX那么真的开发起来很痛苦啊！！</p>
+<h2 id="理解Virtual-DOM树和Diffing算法"><a href="#理解Virtual-DOM树和Diffing算法" class="headerlink" title="理解Virtual DOM树和Diffing算法"></a>理解Virtual DOM树和Diffing算法</h2><p>在React最最常提到的两个概念就是VDOM树，以及Diffing算法。</p>
+<p>Virtual DOM直译过来就是虚拟DOM树，这个概念更多的是一个编程的模式的存在。所谓的虚拟DOM树就是抽象真正的DOM，比如一个div的dom，那么在会抽象一个div的虚拟dom，这个dom里面包含了真正dom元素的引用、类型等等参数，然后在内存中构建一个和真实的dom树一样的结构的树。正因为做了这么一层抽象，React就可以先不用直接操作dom了，而是在内存中先构建一个必要的虚拟dom树，然后做一系列的运算，等做完后，在把最后的计算的结果，再绘制成真正的DOM树。这样可以大大减少DOM操作的次数，提高性能。</p>
+<p>我们知道同一时间只有一个完整的dom树，当我们做数据变动的时候，我们就是在更改dom树的结构，最粗暴的方法的全量替换，那么这肯定是不可取的，这就提到了React团队使用的Diffing算法，称为Reconciliation。整个算法做的事情就是计算出当前状态的dom树和下一个状态的dom的区别，从而重新渲染的时候只渲染更改的部分。比如下图示意图，我们需要变更的部分其实就是右边的分支多了一个元素。</p>
+<p><img src="https://cdn.yuque.com/yuque/0/2018/jpeg/114891/1528032534662-29054566-39aa-451c-8a8a-92d138727da3.jpeg" alt="WechatIMG10.jpeg | center | 827x465"></p>
+<p>这个算法的本质是寻找两颗树的异同部分，然后把一棵树变成另外一颗树。实现算法的过程其实是一个大的递归，去遍历所有的元素，为了是算法性能，React做了两个假设：</p>
+<ol>
+<li>两个不同类型的元素会产生两颗不同的树</li>
+<li>通过开发人员手动的设定唯一的key值来标示子元素的不变性</li>
+</ol>
+<p>通过这两个假设，通过一次递归就可以计算出下一棵树其复杂度控制在O(n).</p>
+<h3 id="算法执行步骤"><a href="#算法执行步骤" class="headerlink" title="算法执行步骤"></a>算法执行步骤</h3><ol>
+<li>首先是比较组件根元素的类型，如果不同直接删除原来元素直接替换。比如把div改为了img，把a改为了div等等。这个过程是把老的元素删除，然后新建新的元素插入。</li>
+<li>如果组件根元素类型相同，那么比较新老元素的属性，并把新的属性更新上去。</li>
+<li>接着遍历组件的根元素的子元素，看是否有唯一的key，如果有唯一的key，react就知道哪些元素是新增，哪些是已有的，那么就没比较重新渲染子元素了，如有有新增就直接插入就可以了。</li>
+</ol>
+<h3 id="React应用的性能优化点："><a href="#React应用的性能优化点：" class="headerlink" title="React应用的性能优化点："></a>React应用的性能优化点：</h3><p>算法不难理解，了解了这些机制后，我们就知道平时写react代码的时候，可以有针对性，如何写出搞性能的React代码。React最后更具算法得出的变更，最后转换成一些列直接调用了原生的dom操作。很明显这里产生了几个注意点</p>
+<ol>
+<li>尽量保证组件根元素不要有变化</li>
+<li>组件根元素内的子元素保证有唯一的Key</li>
+</ol>
+<p>通过上述的算法，我们就知道了到底是哪一部分变化了，这就是这个Reconciliation，也就是diffing算法做的事情。<br>那么接下来的一步就是render了，把变化的部分变成一系列真实的DOM操作。 也正是这种两步走的方式，使得React可以做到跨平台，对于IOS、android平台，重写render部分。</p>
+<h3 id="理解React-Fiber架构"><a href="#理解React-Fiber架构" class="headerlink" title="理解React Fiber架构"></a>理解React Fiber架构</h3><p>React Fiber的出现是为了解决上述的算法的问题而出现的，基本上是对于React核心算法的一次重写。这个算法要比上述的diffing算法要复杂很多。在React 16版本之后已经实现了对核心算法的重写，所以React 15和React 16其实是一个分水岭了，虽然在使用的过程中我们感知不多，但是巨大的改变已经发生。这里讲讲自己的一些理解吧。<br>React Fiber的出现为React打开了一个新的未来。和上一章描述的算法有本质的区别。<br>让我们用白话的方式重新在走一下上一章的Reconciliation算法。首先比如我们创建一个React App，如下：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;App&gt;</span><br><span class="line">    &lt;Page&gt;</span><br><span class="line">        &lt;Title&gt;</span><br><span class="line">            Hello World</span><br><span class="line">        &lt;Title&gt;</span><br><span class="line">    &lt;<span class="regexp">/Page&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>App&gt;</span><br></pre></td></tr></table></figure>
+
+<p>那么首先第一次创建的时候，React会把它转换为Virtual DOM，然后渲染到可能是网页也可能是native的app上。接下来的改动就是一次次的更新了，当这个app改动的时候，React会重新创建一棵Virtual DOM树，然后比较两棵树这件的差异，至此无关任何平台。如果我们是在网页上使用需要渲染为DOM即使是一个小小的改动，那么React会遍历整个虚拟树，找出不同处，比如更新一个属性，改变一个样式又或者删除一个dom节点等等。这样一个过程就是React 15及以前的Reconciliation算法，简单有效。这个过程在任何时候都会反复的进行，不管我们的浏览器是否变慢了，或者渲染的是否在屏幕上等等，任何事情都无法阻止这个渲染的流程。<br>问题到底处在哪里？如果没有问题React团队也就不需要去做这么大的改动了。</p>
+<p>通过上述的描述，React的整个重diffing到更新的整个过程是自动进行的并且无法被停止的，而这就是问题所在。当我们应用很小的时候，其实没什么问题，即使是有很大的更新也不会多到哪里去，也不会发现有什么性能问题，但是如果我们应用开始变得很大很复杂，那么每次React这么一个渲染的流程会导致性能下降，React需要更多的时间来计算，从而导致失帧的现象，拉长了某一帧的时间，导致每秒的帧率不均衡。一般要保证体验的良好，保持每秒60帧是比较好的，也就是大约每一帧的16ms，并且要保持这种频率，而不是一会儿40帧一会儿60帧，如果是这样对用户来说是不能接受的，尤其是有动画等效果的时候更是如此，失帧带来的体验下降是巨大的。也就是整个浏览器页面的计算量，我们需要保证每一帧在16ms内完成。我们会发现：</p>
+<ol>
+<li>其实在UI界面中，我们并不需要每次有更新就执行整个渲染流程。</li>
+<li>不同的更新渲染，其实是有优先级的，比如动画、用户的交互等我们可能希望执行更快，比起更新一个数据。</li>
+</ol>
+<p>如何达到这种效果呢？</p>
+<p>通过上述的场景描述，React Fiber就是为了解决这些事情，它把不同的更新渲染操作分解为一个个小的任务块，他们有优先级、性能要求等等，然后React就可以调度安排这些任务，不再一次性不停的执行，而是把不同的任务根据不同的优先级、性能等把这些任务均匀的分布在每一帧里面，从而使客户体验更加顺滑。</p>
+<p>之前在其他文章中看到一个比喻来形容React Fiber。我们是Renderer程序员，然后有个Reconciler产品经理，本来呢，产品经理提需求比如做一个hotfix、新功能，Renderer程序员没法拒绝只能做，即使现在手头上已经有很多事情，这就导致完成需求需要更长时间，业务方就不满意了。那么有了React Fiber之后呢，我们就可以把hotfix、新需求做优先级安排的去做，这样各方都会比较满意。<br>这里就不具体展开了，后面在通过另一篇文章来详细阐述。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/projects_url">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#理念"><span class="toc-number">1.</span> <span class="toc-text">理念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基础理论概念"><span class="toc-number">2.</span> <span class="toc-text">基础理论概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Transformation"><span class="toc-number">2.1.</span> <span class="toc-text">Transformation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Abstraction"><span class="toc-number">2.2.</span> <span class="toc-text">Abstraction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Composition-（And-Inheritance）"><span class="toc-number">2.3.</span> <span class="toc-text">Composition （And Inheritance）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#State-And-Update"><span class="toc-number">2.4.</span> <span class="toc-text">State And Update</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Memoization"><span class="toc-number">2.5.</span> <span class="toc-text">Memoization</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reconciliation"><span class="toc-number">2.6.</span> <span class="toc-text">Reconciliation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scheduling"><span class="toc-number">2.7.</span> <span class="toc-text">Scheduling</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生命周期"><span class="toc-number">3.</span> <span class="toc-text">生命周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#理解JSX"><span class="toc-number">4.</span> <span class="toc-text">理解JSX</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#理解Virtual-DOM树和Diffing算法"><span class="toc-number">5.</span> <span class="toc-text">理解Virtual DOM树和Diffing算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#算法执行步骤"><span class="toc-number">5.1.</span> <span class="toc-text">算法执行步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#React应用的性能优化点："><span class="toc-number">5.2.</span> <span class="toc-text">React应用的性能优化点：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#理解React-Fiber架构"><span class="toc-number">5.3.</span> <span class="toc-text">理解React Fiber架构</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/06/25/React%E6%BC%AB%E8%B0%88/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/06/25/React%E6%BC%AB%E8%B0%88/&text=React漫谈" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/06/25/React%E6%BC%AB%E8%B0%88/&title=React漫谈" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/06/25/React%E6%BC%AB%E8%B0%88/&is_video=false&description=React漫谈" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=React漫谈&body=Check out this article: http://yoursite.com/2019/06/25/React%E6%BC%AB%E8%B0%88/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/06/25/React%E6%BC%AB%E8%B0%88/&title=React漫谈" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/06/25/React%E6%BC%AB%E8%B0%88/&title=React漫谈" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/06/25/React%E6%BC%AB%E8%B0%88/&title=React漫谈" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/06/25/React%E6%BC%AB%E8%B0%88/&title=React漫谈" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/06/25/React%E6%BC%AB%E8%B0%88/&name=React漫谈&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Lei Chen
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/projects_url">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<!-- clipboard -->
+
+  <script src="/lib/clipboard/clipboard.min.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight .code pre").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

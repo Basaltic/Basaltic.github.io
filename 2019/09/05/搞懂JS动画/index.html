@@ -9,13 +9,13 @@
     <meta name="description" content="导语： 适当的使用动画可以是用户体验得到较高的提升  首先得理解下，什么是动画？下面是摘自维基百科对于动画的定义：  动画是指由许多帧静止的画面，以一定的速度（如每秒16张）连续播放时，肉眼因视觉残象产生错觉，而误以为画面活动的作品。  非常易于理解的定义，我们看的视频、电影等影视作品，都是某种动画，一般像电影是1秒24张画面。 什么是JS动画从某种角度，浏览器就是一个动画播放器、一个画布，通常">
 <meta property="og:type" content="article">
 <meta property="og:title" content="搞懂JS动画">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;09&#x2F;05&#x2F;2019%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB&#x2F;index.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;09&#x2F;05&#x2F;%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB&#x2F;index.html">
 <meta property="og:site_name" content="南上南">
 <meta property="og:description" content="导语： 适当的使用动画可以是用户体验得到较高的提升  首先得理解下，什么是动画？下面是摘自维基百科对于动画的定义：  动画是指由许多帧静止的画面，以一定的速度（如每秒16张）连续播放时，肉眼因视觉残象产生错觉，而误以为画面活动的作品。  非常易于理解的定义，我们看的视频、电影等影视作品，都是某种动画，一般像电影是1秒24张画面。 什么是JS动画从某种角度，浏览器就是一个动画播放器、一个画布，通常">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;jsanime&#x2F;linear.gif">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;jsanime&#x2F;easingInCirc.gif">
-<meta property="og:updated_time" content="2019-11-20T06:56:32.192Z">
+<meta property="og:updated_time" content="2019-11-20T08:02:47.651Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;jsanime&#x2F;linear.gif">
     
@@ -73,10 +73,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" href="/2019/09/25/2019%E6%90%9E%E6%87%82%E6%8A%BD%E8%B1%A1%E8%AF%AD%E6%B3%95%E6%A0%91%EF%BC%88AST%EF%BC%89/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" href="/2019/09/25/%E6%90%9E%E6%87%82%E6%8A%BD%E8%B1%A1%E8%AF%AD%E6%B3%95%E6%A0%91%EF%BC%88AST%EF%BC%89/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" href="/2018/05/23/2018%E6%AF%94%E7%89%B9%E5%B8%81%E4%B9%8B%E6%80%9D/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" href="/2019/07/30/rematch%E6%A1%86%E6%9E%B6%E6%BC%AB%E8%B0%88/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -89,16 +89,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/09/05/2019%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/09/05/2019%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&text=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/09/05/2019%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&title=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/09/05/2019%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&is_video=false&description=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=搞懂JS动画&body=Check out this article: http://yoursite.com/2019/09/05/2019%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/09/05/2019%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&title=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/09/05/2019%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&title=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/09/05/2019%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&title=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/09/05/2019%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&title=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/09/05/2019%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&name=搞懂JS动画&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/09/05/%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/09/05/%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&text=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/09/05/%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&title=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/09/05/%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&is_video=false&description=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=搞懂JS动画&body=Check out this article: http://yoursite.com/2019/09/05/%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/09/05/%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&title=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/09/05/%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&title=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/09/05/%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&title=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/09/05/%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&title=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/09/05/%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&name=搞懂JS动画&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -242,16 +242,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/09/05/2019%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/09/05/2019%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&text=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/09/05/2019%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&title=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/09/05/2019%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&is_video=false&description=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=搞懂JS动画&body=Check out this article: http://yoursite.com/2019/09/05/2019%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/09/05/2019%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&title=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/09/05/2019%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&title=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/09/05/2019%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&title=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/09/05/2019%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&title=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/09/05/2019%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&name=搞懂JS动画&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/09/05/%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/09/05/%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&text=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/09/05/%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&title=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/09/05/%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&is_video=false&description=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=搞懂JS动画&body=Check out this article: http://yoursite.com/2019/09/05/%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/09/05/%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&title=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/09/05/%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&title=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/09/05/%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&title=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/09/05/%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&title=搞懂JS动画" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/09/05/%E6%90%9E%E6%87%82JS%E5%8A%A8%E7%94%BB/&name=搞懂JS动画&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
