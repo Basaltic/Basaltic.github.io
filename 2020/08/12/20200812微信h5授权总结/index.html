@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="背景微信作为第一大国民应用，提供了一套 h5 的授权机制，获取微信的授权之后就可以获取微信用户的信息，以及通过微信提供的 api 在 h5 中调用微信提供的各种能力。在项目中应用到了整个的 h5 授权机制，在此总结一下 准备工作 首先需要申请一个公众号 还需要一个可用的域名 到公众号后台去设置可用来跳转的上述域名。 具体的修改路径：进入公众号管理后台 =&amp;gt; 右侧菜单栏，接口管理 =&amp;gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="20200812微信h5授权总结">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;08&#x2F;12&#x2F;20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93&#x2F;index.html">
+<meta property="og:site_name" content="南上南">
+<meta property="og:description" content="背景微信作为第一大国民应用，提供了一套 h5 的授权机制，获取微信的授权之后就可以获取微信用户的信息，以及通过微信提供的 api 在 h5 中调用微信提供的各种能力。在项目中应用到了整个的 h5 授权机制，在此总结一下 准备工作 首先需要申请一个公众号 还需要一个可用的域名 到公众号后台去设置可用来跳转的上述域名。 具体的修改路径：进入公众号管理后台 =&amp;gt; 右侧菜单栏，接口管理 =&amp;gt;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-08-12T04:07:56.116Z">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>20200812微信h5授权总结</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2020/06/10/http%E8%BD%AE%E8%AF%A2%E5%AE%9E%E7%8E%B0/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&text=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&is_video=false&description=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=20200812微信h5授权总结&body=Check out this article: http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&name=20200812微信h5授权总结&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#背景"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#准备工作"><span class="toc-number">2.</span> <span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#授权步骤"><span class="toc-number">3.</span> <span class="toc-text">授权步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第一步：-触发授权"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">第一步： 触发授权</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第二步：授权完成"><span class="toc-number">3.0.0.2.</span> <span class="toc-text">第二步：授权完成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第三步：通过-code-获取微信用户信息"><span class="toc-number">3.0.0.3.</span> <span class="toc-text">第三步：通过 code 获取微信用户信息</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#本地调试"><span class="toc-number">4.</span> <span class="toc-text">本地调试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#调试工具"><span class="toc-number">5.</span> <span class="toc-text">调试工具</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        20200812微信h5授权总结
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">南上南</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-08-12T02:24:30.000Z" itemprop="datePublished">2020-08-12</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>微信作为第一大国民应用，提供了一套 h5 的授权机制，获取微信的授权之后就可以获取微信用户的信息，以及通过微信提供的 api 在 h5 中调用微信提供的各种能力。在项目中应用到了整个的 h5 授权机制，在此总结一下</p>
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><ul>
+<li>首先需要申请一个公众号</li>
+<li>还需要一个可用的域名</li>
+<li>到公众号后台去设置可用来跳转的上述域名。<ul>
+<li>具体的修改路径：进入公众号管理后台 =&gt; 右侧菜单栏，接口管理 =&gt; 网页授权获取用户基本信息 这个选项 =&gt; 点击修改后跳转到一个页面，填写对应的域名。</li>
+</ul>
+</li>
+<li>在所填写的域名的根目录下面，放置微信提供的 txt 文件，这样可以通过微信的检测（该 txt 文件在上一步的页面中会有下载地址）</li>
+</ul>
+<h1 id="授权步骤"><a href="#授权步骤" class="headerlink" title="授权步骤"></a>授权步骤</h1><p>下面简述最基本、常用的授权过程</p>
+<h4 id="第一步：-触发授权"><a href="#第一步：-触发授权" class="headerlink" title="第一步： 触发授权"></a>第一步： 触发授权</h4><blockquote>
+<p><a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APP_ID}&amp;redirect_uri=${redirectUri}&amp;response_type=code&amp;scope=snsapi_userinfo&amp;state=${extraState}#wechat_redirect" target="_blank" rel="noopener">https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APP_ID}&amp;redirect_uri=${redirectUri}&amp;response_type=code&amp;scope=snsapi_userinfo&amp;state=${extraState}#wechat_redirect</a></p>
+</blockquote>
+<p>h5 的触发授权，是通过主动触发跳转到上述链接。跳转动作触发后，微信会自动弹出授权框。</p>
+<p>h5 授权是采用，跳转 =&gt; 授权 =&gt; 回调，三步骤完成的。</p>
+<p>链接中的参数：</p>
+<ul>
+<li>appid: 公众号的 appid。可以在微信公众号管理后台查看获取</li>
+<li>redirect_uri: 授权通过或拒绝后，跳转的地址。这个地址是我们自己设置需要回调的地址。</li>
+<li>response_type: 固定为 code</li>
+<li>state: 这个参数设置的值，会在授权完成后带到回调地址中<ul>
+<li>例如：设置回调链接是：<a href="https://www.abc.com/signup?param1=test，设置的state=abc" target="_blank" rel="noopener">https://www.abc.com/signup?param1=test，设置的state=abc</a>, 那么最终的回调地址是：<a href="https://www.abc.com/signup?param1=test&amp;state=abc&amp;code=xxxx" target="_blank" rel="noopener">https://www.abc.com/signup?param1=test&amp;state=abc&amp;code=xxxx</a></li>
+</ul>
+</li>
+</ul>
+<p><strong>注意:</strong> 参数带入的时候别忘了<strong>encodeURIComponent</strong>一下。</p>
+<h4 id="第二步：授权完成"><a href="#第二步：授权完成" class="headerlink" title="第二步：授权完成"></a>第二步：授权完成</h4><p>授权完成后，微信会自动触发跳转，跳转到设置的回调地址。并且会带上 code 和 state 参数。</p>
+<h4 id="第三步：通过-code-获取微信用户信息"><a href="#第三步：通过-code-获取微信用户信息" class="headerlink" title="第三步：通过 code 获取微信用户信息"></a>第三步：通过 code 获取微信用户信息</h4><p>这一步需要服务端提供接口。通过传入 code，后端调用微信的接口来获取用户信息。</p>
+<h1 id="本地调试"><a href="#本地调试" class="headerlink" title="本地调试"></a>本地调试</h1><p>当我们没有公众号，没有域名的时候，微信也提供了一个测试公众号，这样可以方便的本地调试。</p>
+<ul>
+<li>使用微信开发者工具, 选择微信网页授权, 微信团队为广大的开发者提供了一个测试账号。该帐号无需公众账号，快速申请接口测试，直接体验和测试公众平台所有高级接口。这么好用的功能，只需要要你有一个手机，手机上安装了一个微信即可。地址：<a href="https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login" target="_blank" rel="noopener">https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login</a> 登录后，会得到一个微信号，和测试好的相关信息。appID,appsecret。</li>
+<li>扫描测试号二维码, 并关注公众号.在网页服务的网页账号中点击修改,填入 127.0.0.1:8080(没有 http)</li>
+<li>组装授权 Url.<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&amp;redirect_uri=REDIRECT_URI&amp;response_type=code&amp;scope=SCOPE&amp;state=STATE#wechat_redirect把参数替换成自己的参数" target="_blank" rel="noopener">https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&amp;redirect_uri=REDIRECT_URI&amp;response_type=code&amp;scope=SCOPE&amp;state=STATE#wechat_redirect把参数替换成自己的参数</a>, appid 填入测试号的 appid, REDIRECT_URI 填入 经过 encodeURIComponent()的参数,SCOPE 填入 snsapi_userinfo, state=#wechat_redirect 即可 eg:<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxef450dbeb79f6c72&amp;redirect_uri=http://5ed286c2.ngrok.io/wx/mp&amp;response_type=code&amp;scope=snsapi_userinfo&amp;state=#wechat_redirect" target="_blank" rel="noopener">https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxef450dbeb79f6c72&amp;redirect_uri=http://5ed286c2.ngrok.io/wx/mp&amp;response_type=code&amp;scope=snsapi_userinfo&amp;state=#wechat_redirect</a></li>
+<li>把组装后的 url 填入微信开发者工具地址栏中就可以发起授权弹窗了</li>
+</ul>
+<h1 id="调试工具"><a href="#调试工具" class="headerlink" title="调试工具"></a>调试工具</h1><p>首选微信开发者工具，选择公众号网页开发即可，提供了完善的开发环境和工具。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#背景"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#准备工作"><span class="toc-number">2.</span> <span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#授权步骤"><span class="toc-number">3.</span> <span class="toc-text">授权步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第一步：-触发授权"><span class="toc-number">3.0.0.1.</span> <span class="toc-text">第一步： 触发授权</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第二步：授权完成"><span class="toc-number">3.0.0.2.</span> <span class="toc-text">第二步：授权完成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第三步：通过-code-获取微信用户信息"><span class="toc-number">3.0.0.3.</span> <span class="toc-text">第三步：通过 code 获取微信用户信息</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#本地调试"><span class="toc-number">4.</span> <span class="toc-text">本地调试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#调试工具"><span class="toc-number">5.</span> <span class="toc-text">调试工具</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&text=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&is_video=false&description=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=20200812微信h5授权总结&body=Check out this article: http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&name=20200812微信h5授权总结&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2020 陈磊
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<!-- clipboard -->
+
+  <script src="/lib/clipboard/clipboard.min.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight .code pre").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
