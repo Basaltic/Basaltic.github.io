@@ -8,14 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="背景在业务发展过程中，经常有一些意外的情况出现，比如突然页面白屏了、某些浏览器兼容不了、发布比较慢等等各种问题，很自然的，发生了什么问题，那么就解决吧，这种直截了当的思路，一般不会错，但是带来的结果就是不断的救火的过程。也是因为这个背景、这个原因，我开始着手治理前端项目，从各个方面，一边不影响现有业务的进化，一边做着项目的优化治理。这些问题的发生，也让感受到有一些更加深层次的底层问题，不仅仅只是代">
 <meta property="og:type" content="article">
-<meta property="og:title" content="记一次前端治理过程和总结">
+<meta property="og:title" content="【Web前端】记一次前端治理过程和总结">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;10&#x2F;%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93&#x2F;index.html">
 <meta property="og:site_name" content="南上南">
 <meta property="og:description" content="背景在业务发展过程中，经常有一些意外的情况出现，比如突然页面白屏了、某些浏览器兼容不了、发布比较慢等等各种问题，很自然的，发生了什么问题，那么就解决吧，这种直截了当的思路，一般不会错，但是带来的结果就是不断的救火的过程。也是因为这个背景、这个原因，我开始着手治理前端项目，从各个方面，一边不影响现有业务的进化，一边做着项目的优化治理。这些问题的发生，也让感受到有一些更加深层次的底层问题，不仅仅只是代">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;cdn.nlark.com&#x2F;yuque&#x2F;0&#x2F;2019&#x2F;png&#x2F;114891&#x2F;1571647090518-46b23e99-cdec-4018-81b9-9a2151e5683d.png#align=left&amp;display=inline&amp;height=124&amp;name=three.png&amp;originHeight=124&amp;originWidth=681&amp;search=&amp;size=14137&amp;status=done&amp;width=681">
 <meta property="og:image" content="https:&#x2F;&#x2F;cdn.nlark.com&#x2F;yuque&#x2F;0&#x2F;2019&#x2F;png&#x2F;114891&#x2F;1571647103025-778c588d-27ff-4e65-b3ac-d32a3281a34e.png#align=left&amp;display=inline&amp;height=219&amp;name=CiFlow.png&amp;originHeight=219&amp;originWidth=2133&amp;search=&amp;size=53399&amp;status=done&amp;width=2133">
-<meta property="og:updated_time" content="2019-11-20T07:58:45.922Z">
+<meta property="og:updated_time" content="2020-10-14T02:45:51.376Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;cdn.nlark.com&#x2F;yuque&#x2F;0&#x2F;2019&#x2F;png&#x2F;114891&#x2F;1571647090518-46b23e99-cdec-4018-81b9-9a2151e5683d.png#align=left&amp;display=inline&amp;height=124&amp;name=three.png&amp;originHeight=124&amp;originWidth=681&amp;search=&amp;size=14137&amp;status=done&amp;width=681">
     
@@ -37,7 +37,7 @@
         
     
     <!-- title -->
-    <title>记一次前端治理过程和总结</title>
+    <title>【Web前端】记一次前端治理过程和总结</title>
     <!-- styles -->
     <link rel="stylesheet" href="/css/style.css">
     <!-- persian styles -->
@@ -88,15 +88,15 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&text=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&is_video=false&description=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=记一次前端治理过程和总结&body=Check out this article: http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&name=记一次前端治理过程和总结&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&text=【Web前端】记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=【Web前端】记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&is_video=false&description=【Web前端】记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【Web前端】记一次前端治理过程和总结&body=Check out this article: http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=【Web前端】记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=【Web前端】记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=【Web前端】记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=【Web前端】记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&name=【Web前端】记一次前端治理过程和总结&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -113,7 +113,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        记一次前端治理过程和总结
+        【Web前端】记一次前端治理过程和总结
     </h1>
 
 
@@ -254,15 +254,15 @@
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&text=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&is_video=false&description=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=记一次前端治理过程和总结&body=Check out this article: http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&name=记一次前端治理过程和总结&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&text=【Web前端】记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=【Web前端】记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&is_video=false&description=【Web前端】记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【Web前端】记一次前端治理过程和总结&body=Check out this article: http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=【Web前端】记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=【Web前端】记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=【Web前端】记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&title=【Web前端】记一次前端治理过程和总结" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/11/10/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%89%8D%E7%AB%AF%E6%B2%BB%E7%90%86%E8%BF%87%E7%A8%8B%E5%92%8C%E6%80%BB%E7%BB%93/&name=【Web前端】记一次前端治理过程和总结&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
