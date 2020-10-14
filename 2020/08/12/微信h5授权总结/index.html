@@ -8,12 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="背景微信作为第一大国民应用，提供了一套 h5 的授权机制，获取微信的授权之后就可以获取微信用户的信息，以及通过微信提供的 api 在 h5 中调用微信提供的各种能力。在项目中应用到了整个的 h5 授权机制，在此总结一下 准备工作 首先需要申请一个公众号 还需要一个可用的域名 到公众号后台去设置可用来跳转的上述域名。 具体的修改路径：进入公众号管理后台 =&amp;gt; 右侧菜单栏，接口管理 =&amp;gt;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="20200812微信h5授权总结">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;08&#x2F;12&#x2F;20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93&#x2F;index.html">
+<meta property="og:title" content="【h5】微信h5授权总结">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;08&#x2F;12&#x2F;%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93&#x2F;index.html">
 <meta property="og:site_name" content="南上南">
 <meta property="og:description" content="背景微信作为第一大国民应用，提供了一套 h5 的授权机制，获取微信的授权之后就可以获取微信用户的信息，以及通过微信提供的 api 在 h5 中调用微信提供的各种能力。在项目中应用到了整个的 h5 授权机制，在此总结一下 准备工作 首先需要申请一个公众号 还需要一个可用的域名 到公众号后台去设置可用来跳转的上述域名。 具体的修改路径：进入公众号管理后台 =&amp;gt; 右侧菜单栏，接口管理 =&amp;gt;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-08-12T04:07:56.116Z">
+<meta property="og:updated_time" content="2020-10-14T02:40:52.708Z">
 <meta name="twitter:card" content="summary">
     
     
@@ -34,7 +34,7 @@
         
     
     <!-- title -->
-    <title>20200812微信h5授权总结</title>
+    <title>【h5】微信h5授权总结</title>
     <!-- styles -->
     <link rel="stylesheet" href="/css/style.css">
     <!-- persian styles -->
@@ -82,16 +82,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&text=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&is_video=false&description=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=20200812微信h5授权总结&body=Check out this article: http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&name=20200812微信h5授权总结&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/08/12/%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/08/12/%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&text=【h5】微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/08/12/%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=【h5】微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/08/12/%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&is_video=false&description=【h5】微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【h5】微信h5授权总结&body=Check out this article: http://yoursite.com/2020/08/12/%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/08/12/%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=【h5】微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/08/12/%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=【h5】微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/08/12/%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=【h5】微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/08/12/%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=【h5】微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/08/12/%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&name=【h5】微信h5授权总结&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -108,7 +108,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        20200812微信h5授权总结
+        【h5】微信h5授权总结
     </h1>
 
 
@@ -200,16 +200,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&text=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&is_video=false&description=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=20200812微信h5授权总结&body=Check out this article: http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=20200812微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/08/12/20200812%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&name=20200812微信h5授权总结&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/08/12/%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2020/08/12/%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&text=【h5】微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/08/12/%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=【h5】微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/08/12/%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&is_video=false&description=【h5】微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【h5】微信h5授权总结&body=Check out this article: http://yoursite.com/2020/08/12/%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2020/08/12/%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=【h5】微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2020/08/12/%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=【h5】微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/08/12/%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=【h5】微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2020/08/12/%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&title=【h5】微信h5授权总结" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/08/12/%E5%BE%AE%E4%BF%A1h5%E6%8E%88%E6%9D%83%E6%80%BB%E7%BB%93/&name=【h5】微信h5授权总结&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
