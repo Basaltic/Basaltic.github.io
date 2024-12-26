@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>http://www.test.com/</loc>
+<lastmod>2024-12-24</lastmod>
+</url>
+<url>
+<loc>http://www.test.com/blog</loc>
+<lastmod>2024-12-24</lastmod>
+</url>
+<url>
+<loc>http://www.test.com/projects</loc>
+<lastmod>2024-12-24</lastmod>
+</url>
+<url>
+<loc>http://www.test.com/photos</loc>
+<lastmod>2024-12-24</lastmod>
+</url>
+<url>
+<loc>http://www.test.com/blog/custom-mdx-examples</loc>
+<lastmod>2024-08-11</lastmod>
+</url>
+<url>
+<loc>http://www.test.com/blog/getting-started</loc>
+<lastmod>2024-08-13</lastmod>
+</url>
+</urlset>
