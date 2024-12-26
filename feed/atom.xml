@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://www.test.com/</id>
+    <title>Lei</title>
+    <updated>2024-12-24T08:21:35.298Z</updated>
+    <generator>Feed for Node.js</generator>
+    <link rel="alternate" href="http://www.test.com/"/>
+    <link rel="self" href="http://www.test.com/atom.xml"/>
+    <rights>All rights reserved 2024, Lei</rights>
+    <entry>
+        <title type="html"><![CDATA[Examples]]></title>
+        <id>http://www.test.com/blog/custom-mdx-examples</id>
+        <link href="http://www.test.com/blog/custom-mdx-examples"/>
+        <updated>2024-08-11T00:00:00.000Z</updated>
+        <category label="Custom MDX" term="Custom MDX"/>
+        <category label="Web development" term="Web development"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Test]]></title>
+        <id>http://www.test.com/blog/getting-started</id>
+        <link href="http://www.test.com/blog/getting-started"/>
+        <updated>2024-08-13T00:00:00.000Z</updated>
+    </entry>
+</feed>
